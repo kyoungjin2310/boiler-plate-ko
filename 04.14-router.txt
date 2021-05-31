@@ -1,0 +1,84 @@
+★ 프로젝트에 라우터 적용
+
+1. 라우터 연결
+1) index에 라우터 연결
+-> import { BrowserRouter } from 'react-router-dom';
+
+2) page 만들기
+-> 컴포넌트 만들기
+
+3) App 을 BrowserRouter 로 감싸기
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById('root')
+);
+
+2. Route: 특정 주소에 컴포넌트 연결하기
+
+-> 사용자가 요청하는 주소에 따라 다른 컴포넌트를 보여줘야 함
+-> Route라는 컴포넌트 사용
+-> 규칙)
+-> <Route path="주소규칙" component={보여주고싶은 컴포넌트}>
+
+1) Route 컴포넌트 작성
+-> 주소 쓸때 / 로 시작
+-> / 경로로 들어가면 홈 컴포넌트
+-> const App = () => {
+  return (
+    <div>
+      <Route path="/" component={Home} />
+      <Route path="/about" component={About} />
+    </div>
+  );
+};
+
+2) Home에 exact={true} 쓰기
+-> /about에 경로가 / 홈과도 일치해서 2개가 같이 나옴
+-> 라우트에 exact 라는 props 를 true 로 설정
+-> const App = () => {
+  return (
+    <div>
+      <Route path="/" exact={true} component={Home} />
+      <Route path="/about" component={About} />
+    </div>
+  );
+};
+
+3. Link: 누르면 다른 주소로 이동시키기
+-> 리액트 라우터를 사용할땐 일반 <a href="...">...</a> 태그를 사용X
+-> Link 라는 컴포넌트를 사용
+-> import { Route, Link } from 'react-router-dom';
+-> Link 컴포넌트에 to쓰고 주소 쓰기
+-> const App = () => {
+  return (
+    <div>
+      <ul>
+        <li>
+          <Link to="/">홈</Link>
+        </li>
+        <li>
+          <Link to="/about">소개</Link>
+        </li>
+      </ul>
+      <Route path="/" exact={true} component={Home} />
+      <Route path="/about" component={About} />
+    </div>
+  );
+};
+
+--------------------------------------------------------------------------------------
+★ 파라미터와 쿼리
+
+1) 파라미터
+-> 특정 id 나 이름을 가지고 조회할 때
+-> 파라미터: /profiles/velopert
+
+2) 쿼리
+-> 쿼리의 경우엔 어떤 키워드를 검색하거나, 요청을 할 때 필요한 옵션을 전달 할 때
+-> 쿼리: /about?details=true
+
+-------------------------------------------------
+import {* as 이름 임의지정} from '파일주소';
+-> as 문법을 통해 이름을 임의로 설정

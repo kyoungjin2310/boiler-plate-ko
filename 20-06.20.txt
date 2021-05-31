@@ -1,0 +1,29 @@
+개발환경 설치
+1. node.js 설치
+
+Local: http://localhost:3000
+On Your Network:  http://192.168.25.13:3000
+
+-------------------------------------------------------------------
+
+react 파일
+-> from -> 파일 경로
+-> npx는 한번만 실행
+-> npm run build(입력후 build폴더에 있는것 쓰기)
+-> npm run start -> 실행창 브라우져 열기
+-> npx serve -s build -> build폴더로 브라우져 실행
+-> class 안에 함수 function은 생략함
+-> sub="" -> 태그 없는 text
+- > desc="" -> 본문 text
+
+1. class 함수 사용
+class 태그지정이름(대문자로 시작해야됨) extends Component{
+	render(){
+		return(
+			html(하나의 큰 태그로 감싸야함)	
+		);
+	}
+}
+2. 만든 태그의 속성 변경(함수안에)
+<만튼태그>{this.props.속성}</만든태그>
+-> 작성 후 <만든태그 속성="값" 속성="값"></만든태그>

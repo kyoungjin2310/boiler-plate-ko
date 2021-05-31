@@ -1,0 +1,26 @@
+1. state 바뀌면 render 다시됨
+
+2.  react 이벤트 실행
+-> 자바스크립트 기본 이벤트를 중간 단어 바뀔때 대문자로 바꾸기
+    -> ex) onClick
+
+3. debugger;
+-> 이벤트 자체를 실행 안하고 멈춤
+-> 함수 뒤에 위치
+
+4. e.preventDefault(); 
+-> 이벤트 있는 태그 기능막기
+-> 함수 뒤에 위치
+
+5. 이벤트시
+5-1. 사용
+-> {function(e){}.bind(this)}
+-> .bind(this) => this를 정의해줌
+5-2. state 값 변경
+- > this.setState({
+     	객체:'값'	
+     })
+5-3. this 사용
+-> 함수안에 태그안 함수는 this를 따로 지정해야됨(undefined) => .bind(this)
+5-4. 대상 지정
+->.bind(객체)

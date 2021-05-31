@@ -1,0 +1,29 @@
+1. redux devtools 설치
+1) npm i redux-devtools-extension -D
+2) { compostWithDevTools } = require('redux-devtools-extension');
+3) compose 대신 compostWithDevTools를 씀
+const enhancer = composeWithDevTools(
+	applyMIddleware(
+		firstMiddleware,
+		thunkMiddleware,
+	)
+)
+
+4) 배포했을때 아예 redux devtools를 안쓰고 싶을때
+const enhancer = process.env.NODE_ENV === 'production'
+?
+compose(
+	applyMIddleware(
+		firstMiddleware,
+		thunkMiddleware,
+	)
+)
+: composeWithDevTools(
+	applyMIddleware(
+		firstMiddleware,
+		thunkMiddleware,
+	)
+)
+
+5) 컨테이너
+-> 데이터 가져오는 컴포넌트

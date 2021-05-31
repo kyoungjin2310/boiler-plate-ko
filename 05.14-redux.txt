@@ -1,0 +1,144 @@
+1. createStore
+=> 사용 
+const store명 = createStore(reducer함수, 초기값) 
+
+2. combineReducers
+=> reducer는 쪼갤수가 없어서 redux에서 지원하는 combineReducers를 사용
+
+=> 사용 예시1
+combineReducers({
+	user: userReducer,
+	post: postReducer
+})
+
+=> 사용 예시2
+module.exports combineReducers({
+	user: userReducer,
+	post: postReducer
+})
+
+3. reducer 폴더
+=> user.js - module.export userReducer
+=> post.js - module.export postReducer
+=> index.js - combineReducers
+=> reducer를 나누어서 각 나눠진 reducer 폴더 안에값도 바꾸어야함
+-> user: userReducer - user만 다루기때문에 user관점에서 값을 바꿈(post도 마찬가지)
+=> 각 reducer의 prevState는 원래 초기값을 설정해줘야함
+-> 예시
+const initialState = [];
+const postReducer = (prevState = initialState, action)
+
+4. action
+- 동기
+
+5. enhancer
+=> enhancer은 아래 위치
+const store = createStore(reducer, initialState, enhancer)
+
+=> enhancer 예시
+const enhancer = compose(
+	applyMiddleware(),
+	devtool,
+)
+-> compose() - 합성하는 함수
+-> devtool - redux의 action이런것들을 크롬확장프로그램으로 알려줌
+
+=> const enhancer = applyMiddleware(firstMiddleware);
+-> compose()생략해도 작동은 함
+
+6. firstMiddleware
+=> 구조
+const firstMiddleware = (store) => (next) => (action) => {
+
+};
+-> next = dispatch
+-> 설명(위, 아래 문법과 같음)
+function firstMiddleware(store) {
+	사이에서 동작
+	return function(next){
+		사이에서 동작
+		return function(action){
+
+		}
+	}
+}
+- 중첩을 한이유 사이에서 동작, 실행에서 시작점 차이가 있음
+
+=> 예시
+const firstMiddleware = (store) => (next) => (action) => {
+	//dispatch 전 기능추가
+	console.log(action);//dispatch전 기능
+	
+	dispatch(action);//기본기능
+
+	//dispatch 후 기능추가	
+};
+
+
+7. applyMiddleware
+=> 미들웨어 여러개 연결 가능
+=> const enhancer = applyMiddleware(
+	firstMiddleware,
+	thunkMiddleware
+);
+
+8. 비동기 실행
+=> 예시
+store.dispatch(비동기명(data:{
+	id: 1,
+	name: 'aa',
+	admin: true
+
+}))
+
+9. react-redux 
+=> createStore있는곳 store.js로 바꾸기
+const store명 = createStore(reducer함수, 초기값) 
+=> Provider - context Api랑 비슷함
+import { Provider } from 'react-redux'
+
+ReactDOM.render(
+	<Provider store={store}>
+		<Hot />
+	</Provider>,
+	document.querySelector('#root')
+);
+
+9-1) useDispatch
+import { useDispatch, useSelector } from 'react-redux';
+=> dispatch 함수를 가져오는 것
+=> 사용
+const dispatch = useDispatch();
+
+9-2) useSelector
+=> 사용
+const user = useSelector((state) => {state.꺼내오고싶은정보});
+-> data 선택하는 것
+
+
+10. redux devtool
+=> 확인 가능
+-> Action
+-> State
+-> Diff - 달라진점
+-> Trace - 추적
+-> Test
+-> 왼쪽에는 동기 action기록 (비동기X)
+
+10-1) 예전 방식
+=> const enhancer = compose(applyMiddleware(
+		firstMiddleware,
+		thunkMiddleware
+	),
+	typeof window === 'object' && typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined'
+	? window.__REDUX_DEVTOOLS_EXTENSION__()
+	: (f) => f,
+);
+
+
+11. reducer type 따로 관리
+=> 상수로 따로 빼서 관리
+-> 예시
+const LOG_IN_REQUEST = 'LOG_IN_REQUEST'
+
+

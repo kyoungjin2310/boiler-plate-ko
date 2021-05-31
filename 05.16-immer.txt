@@ -1,0 +1,73 @@
+1. immer 
+=> 리덕스 불변성때문에 깊게있는 객체를 한번에 가져오기 힘들때 사용
+=> 예시
+return{
+	...prevState,
+	data: null,
+	deep: {
+		...prevState.deep,
+		deeper: {
+			...prevState.deeper,
+			deepest: {
+				...prevState.deepest,
+				a: 'b',	
+			}
+		}
+	}
+}
+
+	↓
+state.deep.deeper.deepest.a = 'b';
+
+2. immer 사용
+=> 연결 - require
+const { produce } = require('immer');
+=> 연결 - react
+import produce from 'immer';
+=> 기본형태
+nextState = produce(prevState, (draft) => {})
+-> prevState를 바탕으로 draft을 받아서 nextState를 만듬
+=> 적용
+const userReducer = (prevState = initialState, action) => {
+	return produce(prevState, (draft) => {
+		switch(action.type){
+			case 'LOG_OUT' :
+				return {
+					draft.data = null;
+					draft.deep.deeper.deepest.a = 'b';
+				}
+				break;
+			default :
+				break;
+		}
+	})
+
+}
+-> draft는 prevState 복사본
+-> immer 안쓰면 아래처럼 써야함
+return{
+	...prevState,
+	data: null,
+	deep: {
+		...prevState.deep,
+		deeper: {
+			...prevState.deeper,
+			deepest: {
+				...prevState.deepest,
+				a: 'b',	
+			}
+		}
+	}
+}
+-> immer에서는 break 꼭쓰기
+-> 예시 - 배열
+const userReducer = (prevState = initialState, action) => {
+	return produce(prevState, (draft) => {
+		switch(action.type){
+			case 'ADD_POST' :
+				draft.push(action.data);
+				break;
+			default:
+				break;
+	})
+}

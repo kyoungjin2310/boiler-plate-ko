@@ -1,0 +1,108 @@
+1. 로그인 기능
+
+1) 이메일
+- value
+- onchange -> useState 이용
+
+2) 패스워드
+- value
+- onchange -> useState 이용
+
+3) form 
+- onSumitHandler -> event.preventDefault(); 꼭쓰기
+- 이메일, 비밀번호 객체 만들기 - body객체
+- Axios를 이용해서 데이터 등록
+const onSumitHandler = (event) => {
+	event.preventDefault();
+	let body = {
+		email: Email,
+		password
+	}
+
+	dispatch(loginUser(body))//action이름이 loginUser
+	// 로그인후 홈으로 이동
+	// react에서 페이지 이동시 아래처럼 변경
+	.then(reponse => {
+		if(response.payload.loginSuccess){
+			//props를 꼭 컴포넌트 파라미터에 넣어야함
+			props.history.push('/')
+		} else { 
+		 	alert('Error')
+		}
+	})
+	
+}
+- redux useDispatch 이용
+import { useDispatch } from 'react-redux';
+import { loginUser } from './action'
+function 컴포넌트 (prop){
+	const dispatch = useDispatch();
+} 
+
+4) 리덕스 action js 만들기
+import axios from 'axios';
+
+//dispatch에서 괄호안의 이름(loginUser)과 같아야 함 - action 컴포넌트
+//body를 넣은걸 파라미터(dataToSubmit)로 받아옴	
+export function loginUser(dataToSubmit){
+
+	//req에서 받은 데이터를 서버에다가 저장함
+	const request =  axios.post('/api/user/login', dataToSubmit)
+	.then(resposen => response.data)
+
+	//redux에 넘기려면 (reduce함수, action) 이기때문에,
+	//action에 결과를 넣어야해서 return을 씀
+	//action - type, response(payload)
+	return{
+		type: "login_user",
+		payload: request
+	}
+	
+}
+
+5) 리덕스 reducer js 만들기
+//전 객체 - state, 변경 state  - action 
+import { LOGIN_USER } from './type'
+
+export default function (state = {}, action){
+	switch(action.type){
+		case LOGIN_USER:
+			//return은 변경 후 결과 값을 내보내야 해서 씀
+			return { ...state, loginSuccess: action.payload }
+			break;
+		default:
+			return state;
+	}
+	
+
+}
+
+6) action type js 만들기 - action의 type만 따로 만듬
+export const LOGIN_USER = "login_user";
+
+
+2. 회원 가입
+- 로그인과 비슷한 패턴
+- 비밀번호와 비밀번호 확인 값이 같아야함 -> form const onSumitHandler에서 작성
+const onSumitHandler = (event) => {
+	if(Password !== ConfirmPassword){
+		return alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
+	}
+}
+
+
+3. 로그아웃
+
+1) 클릭이벤트 주기
+<button onClick={onClickHandler}>로그아웃</button>
+- 바로 로그인페이지로 이동
+const onClickHandler = () => {
+	axios.get(`./api/users/logout`)
+	.then(response => {
+		if(response.data.success){
+			props.history.push('/login')
+		}else{
+			alert('로그아웃 하는데 실패 했습니다.')
+		}
+	})
+}
