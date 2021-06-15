@@ -47,7 +47,7 @@ const AppNavbar = () => {
   const authLink = (
     <Fragment>
       <NavItem>
-        {userRole === "MainJuin" ? (
+        {userRole === "Main" ? (
           <Form className="col mt-2">
             <Link
               to="/post"

@@ -3,6 +3,8 @@ require("@babel/polyfill");
 
 //model
 import Post from "../../models/post";
+import User from "../../models/user";
+import Category from "../../models/category";
 import auth from "../../middleware/auth";
 
 const router = express.Router();
@@ -14,6 +16,8 @@ import path from "path";
 import AWS from "aws-sdk";
 import dotenv from "dotenv";
 import { async } from "regenerator-runtime";
+import moment from "moment";
+import { isNullOrUndefined } from "util";
 dotenv.config();
 
 //s3 설정
@@ -63,10 +67,15 @@ router.get("/", async (req, res) => {
   res.json(postFindResult);
 });
 
-router.post("/", auth, async (req, res, next) => {
+//@route  POST api/post
+//@desc   Create a Post
+//@access Private
+
+//uploadS3에는 주소만 있어서 별도로 추가 코드를 작성X
+router.post("/", auth, uploadS3.none(), async (req, res, next) => {
   try {
     console.log(req, "req");
-    const { title, contents, fileUrl, creator } = req.body;
+    const { title, contents, fileUrl, creator, category } = req.body;
 
     //{}안에 있는내용으로 정보 만들기
     const newPost = await Post.create({
@@ -74,8 +83,71 @@ router.post("/", auth, async (req, res, next) => {
       contents,
       fileUrl,
       creator,
+      date: moment().format("YYYY-MM-DD hh:mm:ss"),
     });
-    res.json(newPost);
+
+    //findOne 하나만 찾기 - req안에 category와 같은 것을 찾음
+    const findResult = await Category.findOne({
+      //model에 있는걸 써야함
+      categoryName: category,
+    });
+
+    console.log(findResult, "Find Result!!!!");
+
+    //Category를 처음 만들때
+    //findResult가 없다면
+    //await을 적어야 다음으로 넘어가서 작성
+    if (isNullOrUndefined(findResult)) {
+      const newCategory = await Category.create({
+        //model안에 이름이랑 같아야함
+        //req에서 작성된 category
+        categoryName: category,
+      });
+
+      //Post에 category연결
+      //id로 찾아서 업데이트
+      await Post.findByIdAndUpdate(newPost._id, {
+        //model안에 이름이랑 같아야함
+        //$push는 방금만든 newCategory를 category에 배열로 만들어서 추가
+        $push: { category: newCategory._id },
+      });
+
+      //category에 Post 연결
+      await Category.findByIdAndUpdate(newCategory._id, {
+        //model안에 이름이랑 같아야함
+        $push: { posts: newPost._id },
+      });
+
+      //글쓴사람과 post 연결
+      await User.findByIdAndUpdate(req.user.id, {
+        //user는 여러 post를 보낼수 있음
+        //model안에 이름이랑 같아야함 post -> posts
+        $push: {
+          posts: newPost.id,
+        },
+      });
+    } else {
+      //findResult 값이 있을 경우(category값이 이미 존재 할 경우)
+      //_id는 mongoDB에서 id를 쓸때 _id를 씀
+      await Category.findByIdAndUpdate(findResult._id, {
+        $push: { posts: newPost._id },
+      });
+
+      await Post.findByIdAndUpdate(newPost._id, {
+        //findResult 찾은 값을 사용
+        category: findResult.id,
+      });
+
+      await User.findByIdAndUpdate(req.user.id, {
+        //user는 여러 post를 보낼수 있음
+        //model안에 이름이랑 같아야함 post -> posts
+        $push: {
+          posts: newPost.id,
+        },
+      });
+    }
+    //글을 다쓰면 id주소로 이동
+    return res.redirect(`/api/post/${newPost._id}`);
   } catch (e) {
     console.log(e);
   }

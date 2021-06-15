@@ -8,7 +8,9 @@ import PostCardList from "./normalRoute/PostCardList";
 import PostWrite from "./normalRoute/PostWrite";
 import PostDetail from "./normalRoute/PostDetail";
 import Search from "./normalRoute/Search";
+import PostEdit from "./normalRoute/PostEdit";
 import CategoryResult from "./normalRoute/CategoryResult";
+import Profile from "./normalRoute/Profile";
 
 const MyRouter = () => (
   <Fragment>
