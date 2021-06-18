@@ -30,7 +30,7 @@ const PostWrite = () => {
     contents: "",
     fileUrl: "",
   });
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
 
   const onChange = (e) => {
     const { name, value } = e.target;
