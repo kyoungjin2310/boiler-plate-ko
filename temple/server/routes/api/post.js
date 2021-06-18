@@ -82,7 +82,11 @@ router.post("/", auth, uploadS3.none(), async (req, res, next) => {
       title,
       contents,
       fileUrl,
-      creator,
+      //작성자가 누구인지 작성
+      //creator가 안나올경우 mongoDB로 들어가서
+      //clusters 클릭 -> collections 클릭 -> posts를 마우스로 hover -> 휴지통 아이콘 클릭후
+      //-> posts 쓰고 닫기
+      creator: req.user.id,
       date: moment().format("YYYY-MM-DD hh:mm:ss"),
     });
 
@@ -150,6 +154,27 @@ router.post("/", auth, uploadS3.none(), async (req, res, next) => {
     return res.redirect(`/api/post/${newPost._id}`);
   } catch (e) {
     console.log(e);
+  }
+});
+
+//각 id로 새로운 주소 추가
+//@route     Post api/post/:id
+//@desc      Detail Post(detail 주소로 넘어감)
+//@access    Pubilc
+
+router.get("/:id", async (req, res, next) => {
+  try {
+    //Post model에서 id를 찾기
+    //popuplate - Post model에서 Object.id(Post model에 저장X, 연결이 되어있음) 연결되어 있는 것들을 만들어달라는 것
+    //popuplate({ path: "category", select: "categoryName" }) - 객체형식으로 적어야 정석
+    //popuplate("creator", "name")은 생략한 것
+    //path - Post model안에서 category
+    const post = await Post.findById(req.params.id)
+      .popuplate("creator", "name")
+      .popuplate({ path: "category", select: "categoryName" });
+  } catch (e) {
+    console.log(e);
+    next(e);
   }
 });
 

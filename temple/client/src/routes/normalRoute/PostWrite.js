@@ -43,17 +43,25 @@ const PostWrite = () => {
   const onSubmit = async (e) => {
     await e.preventDefault();
     const { title, contents, fileUrl, category } = form;
+    const token = localStorage.getItem("token");
+    const body = { title, contents, fileUrl, category, token };
+    dispatch({
+      type: POST_UPLOADING_REQUEST,
+      payload: body,
+    });
   };
 
   const getDataFromCKEditor = (event, editor) => {
     //ckeditor에서 data를 가져옴
     const data = editor.getData();
+    console.log(data);
 
     //사진이 없으면 랜덤이미지 가져오기
     //data에 아래 글자가 일치하는것이 있으면 동작
     if (data && data.match("<img src=")) {
       //시작점
       const whereImg_start = data.indexOf("<img src=");
+      console.log(whereImg_start);
       //마지막점
       let whereImg_end = "";
       //확장자 찾기
@@ -103,7 +111,7 @@ const PostWrite = () => {
   return (
     <div>
       {isAuthenticated ? (
-        <Form>
+        <Form onSubmit={onSubmit}>
           {/*form 감싸는 용도로 - FormGroup 씀*/}
           <FormGroup className="mb-3">
             <Label for="title">Title</Label>

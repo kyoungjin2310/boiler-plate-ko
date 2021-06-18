@@ -19,6 +19,7 @@ import {
   PASSWORD_EDIT_UPLOADING_FAILURE,
 } from "../types";
 
+//store에서 빈값인것을 정리해줌
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,
@@ -44,6 +45,7 @@ const authReducer = (state = initialState, action) => {
       };
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
+      //localStorage에 action.payload안에 token을 넣음
       localStorage.setItem("token", action.payload.token);
       return {
         ...state,

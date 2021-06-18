@@ -1,5 +1,7 @@
+//서버를 전송받아서 그려주는 역할
 import React, { useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
+//header의 title을 바꿔줌
 import { Helmet } from "react-helmet";
 import {
   POST_DETAIL_LOADING_REQUEST,
@@ -8,7 +10,7 @@ import {
 } from "../../redux/types";
 import { Button, Row, Col, Container } from "reactstrap";
 import { Link } from "react-router-dom";
-import CKEditor from "@ckeditor/ckeditor5-react";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { GrowingSpinner } from "../../components/spinner/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,29 +24,37 @@ import Comments from "../../components/comments/Comments";
 
 const PostDetail = (req) => {
   const dispatch = useDispatch();
+  //post
   const { postDetail, creatorId, title, loading } = useSelector(
     (state) => state.post
   );
+  //user
   const { userId, userName } = useSelector((state) => state.auth);
   const { comments } = useSelector((state) => state.comment);
 
   console.log(req);
   useEffect(() => {
+    //detail을 클릭했을때 주소에 post id가 담김
     dispatch({
       type: POST_DETAIL_LOADING_REQUEST,
       payload: req.match.params.id,
     });
+    //작성자만 Delete 버튼이 보이게 구별할 수 있도록 token을 보냄
     dispatch({
       type: USER_LOADING_REQUEST,
+      //개발자도구 F12 -> Application -> 왼쪽에 Local Storage
+      //token은 보안적인 측면에서 이름을 나중에 변경
       payload: localStorage.getItem("token"),
     });
   }, [dispatch, req.match.params.id]);
 
+  //글을 지워주는 버튼(작성한 사람만 삭제 가능)
   const onDeleteClick = () => {
     dispatch({
       type: POST_DELETE_REQUEST,
       payload: {
         id: req.match.params.id,
+        //작성한 사람만 가능해서 token이 필요함
         token: localStorage.getItem("token"),
       },
     });
@@ -89,6 +99,7 @@ const PostDetail = (req) => {
 
   const Body = (
     <>
+      {/*userId랑 creatorId랑 같으면 Edit*/}
       {userId === creatorId ? EditButton : HomeButton}
       <Row className="border-bottom border-top border-primary p-3 mb-3 d-flex justify-content-between">
         {(() => {

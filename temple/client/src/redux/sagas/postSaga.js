@@ -55,7 +55,7 @@ function* watchLoadPosts() {
 }
 
 // Post Upload
-
+// 인증받은사람만 업로드 가능
 const uploadPostAPI = (payload) => {
   const config = {
     headers: {
@@ -72,12 +72,17 @@ const uploadPostAPI = (payload) => {
 function* uploadPosts(action) {
   try {
     console.log(action, "uploadPost function");
+    //uploadPostAPI를 실행, action.payload를 넘겨줌
+    //call을 사용하면 특정 함수를 호출하고, 결과물이 반환 될 때까지 기다림
+    //call - API 함수에 넣어주고 싶은 인자는 call 함수의 두번째 인자부터 순서대로 넣음
+    //api 통신할때는 call
     const result = yield call(uploadPostAPI, action.payload);
     console.log(result, "uploadPostAPI, action.payload");
     yield put({
       type: POST_UPLOADING_SUCCESS,
       payload: result.data,
     });
+    //글을 작성한 detail페이지로 넘어가게함
     yield put(push(`/post/${result.data._id}`));
   } catch (e) {
     yield put({
@@ -89,18 +94,22 @@ function* uploadPosts(action) {
 }
 
 function* watchuploadPosts() {
+  //takeXXX 류의 함수는 특정 액션(들) 을 감시하는 함수
   yield takeEvery(POST_UPLOADING_REQUEST, uploadPosts);
 }
 
 // Post Detail
 const loadPostDetailAPI = (payload) => {
+  //PostDetail의 useEffect안의 payload
   console.log(payload);
+  //정보를 가져올경우 get
   return axios.get(`/api/post/${payload}`);
 };
 
 function* loadPostDetail(action) {
   try {
     console.log(action);
+    //PostDetail의 useEffect안의 payload
     const result = yield call(loadPostDetailAPI, action.payload);
     console.log(result, "post_detail_saga_data");
     yield put({
