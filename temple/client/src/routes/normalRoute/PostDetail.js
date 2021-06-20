@@ -102,27 +102,36 @@ const PostDetail = (req) => {
       {/*userId랑 creatorId랑 같으면 Edit*/}
       {userId === creatorId ? EditButton : HomeButton}
       <Row className="border-bottom border-top border-primary p-3 mb-3 d-flex justify-content-between">
-        {(() => {
-          if (postDetail && postDetail.creator) {
-            return (
-              <Fragment>
-                <div className="font-weight-bold text-big">
-                  <span className="mr-3">
-                    <Button color="info">
-                      {postDetail.category.categoryName}
-                    </Button>
-                  </span>
-                  {postDetail.title}
-                </div>
-                <div className="align-self-end">{postDetail.creator.name}</div>
-              </Fragment>
-            );
-          }
-        })()}
+        {
+          //삼항연산자를 안쓸경우
+          //1. ()안에 함수 작성
+          //2. 그리고 ()추가 - 함수처럼 실행한다는 의미
+          //3. 형태 - (익명함수)()
+          (() => {
+            if (postDetail && postDetail.creator) {
+              return (
+                <Fragment>
+                  <div className="font-weight-bold text-big">
+                    <span className="mr-3">
+                      <Button color="info">
+                        {postDetail.category.categoryName}
+                      </Button>
+                    </span>
+                    {postDetail.title}
+                  </div>
+                  <div className="align-self-end">
+                    {postDetail.creator.name}
+                  </div>
+                </Fragment>
+              );
+            }
+          })()
+        }
       </Row>
       {postDetail && postDetail.comments ? (
         <Fragment>
           <div className="d-flex justify-content-end align-items-baseline small">
+            {/*볼펜아이콘*/}
             <FontAwesomeIcon icon={faPencilAlt} />
             &nbsp;
             <span> {postDetail.date}</span>
@@ -132,9 +141,11 @@ const PostDetail = (req) => {
             <span>{postDetail.comments.length}</span>
             &nbsp;&nbsp;
             <FontAwesomeIcon icon={faMouse} />
+            {/*조회수*/}
             <span>{postDetail.views}</span>
           </div>
           <Row className="mb-3">
+            {/*disabled - 읽기전용*/}
             <CKEditor
               editor={BalloonEditor}
               data={postDetail.contents}

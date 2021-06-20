@@ -101,7 +101,7 @@ function* watchuploadPosts() {
 // Post Detail
 const loadPostDetailAPI = (payload) => {
   //PostDetail의 useEffect안의 payload
-  console.log(payload);
+  console.log("***", payload);
   //정보를 가져올경우 get
   return axios.get(`/api/post/${payload}`);
 };
