@@ -213,7 +213,7 @@ const PostEditUploadAPI = (payload) => {
   if (token) {
     config.headers["x-auth-token"] = token;
   }
-
+  //설정은 넘겨주는 값 다음에 작성
   return axios.post(`/api/post/${payload.id}/edit`, payload, config);
 };
 

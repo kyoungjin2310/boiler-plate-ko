@@ -255,4 +255,79 @@ router.post("/:id/comments", async (req, res, next) => {
   }
 });
 
+// @route    Delete api/post/:id
+// @desc     Delete a Post
+// @access   Private
+// 글삭제
+router.delete("/:id", auth, async (req, res) => {
+  //req.params.id로 들어오는것을 다지움
+  await Post.deleteMany({ _id: req.params.id });
+  await Comment.deleteMany({ post: req.params.id });
+  await User.findByIdAndUpdate(req.user.id, {
+    //배열에서 값을 빼줄때는 pull을 사용
+    $pull: {
+      posts: req.params.id,
+      comments: { post_id: req.params.id },
+    },
+  });
+  //카테고리
+  //findOneAndUpdate - 찾고 업데이트
+  const CategoryUpdateResult = await Category.findOneAndUpdate(
+    { posts: req.params.id },
+    { $pull: { posts: req.params.id } },
+    //mongoose에서 업데이트를 하려면 new를 true로 설정해야함
+    { new: true }
+  );
+
+  if (CategoryUpdateResult.posts.length === 0) {
+    await Category.deleteMany({ _id: CategoryUpdateResult });
+  }
+  return res.json({ success: true });
+});
+
+// @route    GET api/post/:id/edit
+// @desc     Edit Post
+// @access   Private
+//글 수정
+
+//post를 찾고 정보를 내보내줌 - 정보받기
+router.get("/:id/edit", auth, async (req, res, next) => {
+  try {
+    //populate - 생성
+    const post = await Post.findById(req.params.id).populate("creator", "name");
+    res.json(post);
+  } catch (e) {
+    console.error(e);
+  }
+});
+
+//get이랑 주소가 같음, auth은 인증이 필요한 경우
+router.post("/:id/edit", auth, async (req, res, next) => {
+  console.log(req, "api/post/:id/edit");
+  //구조분해
+  const {
+    body: { title, contents, fileUrl, id },
+  } = req;
+
+  try {
+    //수정된 post
+    const modified_post = await Post.findByIdAndUpdate(
+      id,
+      {
+        title,
+        contents,
+        fileUrl,
+        //수정한 날짜로 바꿈
+        date: moment().format("YYYY-MM-DD hh:mm:ss"),
+      },
+      { new: true }
+    );
+    console.log(modified_post, "edit modified");
+    res.redirect(`/api/post/${modified_post.id}`);
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
+
 export default router;

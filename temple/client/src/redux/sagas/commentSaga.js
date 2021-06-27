@@ -11,9 +11,10 @@ import {
 import { push } from "connected-react-router";
 
 // Load Comment
-
+// server router - post.js(router.post("/:id/comments"))
 const loadCommentsAPI = (payload) => {
-  console.log(payload, "loadCommentAPI ID");
+  //id 값을 가져옴
+  console.log(payload, "loadCommentAPI ID 1");
   return axios.get(`/api/post/${payload}/comments`);
 };
 
@@ -40,9 +41,11 @@ function* watchLoadComments() {
 }
 
 // UpLoad Comment
-
+// 넘겨주는 값을 세부적으로 작성
+//payload값이 다들어옴
 const uploadCommentsAPI = (payload) => {
-  console.log(payload.id, "loadCommentAPI ID");
+  console.log(payload.id, "loadCommentAPI ID 2");
+  //payload 적어야 값을 body에 받음
   return axios.post(`/api/post/${payload.id}/comments`, payload);
 };
 

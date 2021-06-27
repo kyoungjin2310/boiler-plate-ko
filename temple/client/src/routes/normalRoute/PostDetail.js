@@ -30,6 +30,8 @@ const PostDetail = (req) => {
   );
   //user
   const { userId, userName } = useSelector((state) => state.auth);
+
+  //comment 불러오기(CommentReducer.js에서 불러오는 것임)
   const { comments } = useSelector((state) => state.comment);
 
   console.log(req);
@@ -155,32 +157,45 @@ const PostDetail = (req) => {
           </Row>
           <Row>
             <Container className="mb-3 border border-blue rounded">
-              {Array.isArray(comments)
-                ? comments.map(
-                    ({ contents, creator, date, _id, creatorName }) => (
-                      <div key={_id}>
-                        <Row className="justify-content-between p-2">
-                          <div className="font-weight-bold">
-                            {creatorName ? creatorName : creator}
-                          </div>
-                          <div className="text-small">
-                            <span className="font-weight-bold">
-                              {date.split(" ")[0]}
-                            </span>
-                            <span className="font-weight-light">
-                              {" "}
-                              {date.split(" ")[1]}
-                            </span>
-                          </div>
-                        </Row>
-                        <Row className="p-2">
-                          <div>{contents}</div>
-                        </Row>
-                        <hr />
-                      </div>
+              {
+                //comments 배열이있으면
+                Array.isArray(comments)
+                  ? comments.map(
+                      ({ contents, creator, date, _id, creatorName }) => (
+                        <div key={_id}>
+                          <Row className="justify-content-between p-2">
+                            <div className="font-weight-bold">
+                              {
+                                //creatorName이 있으면, creator - 고유 아이디
+                                creatorName ? creatorName : creator
+                              }
+                            </div>
+                            <div className="text-small">
+                              <span className="font-weight-bold">
+                                {/*split으로 나눠주고 띄어쓰기로 구분, 첫번째 값을 적어줌 -> comment에서 년도 다음에 띄어쓰기 시간*/}
+                                {date.split(" ")[0]}
+                              </span>
+                              <span className="font-weight-light">
+                                {" "}
+                                {date.split(" ")[1]}
+                              </span>
+                            </div>
+                          </Row>
+                          <Row className="p-2">
+                            <div>{contents}</div>
+                          </Row>
+                          <hr />
+                        </div>
+                      )
                     )
-                  )
-                : "Creator"}
+                  : "Creator"
+              }
+              {/* 
+                너무 길어져서 모듈화 하기
+                req.match.params.id - post id를 넘겨주는것(어느 post 인지 명확히 해야함)
+                userId - 작성자 아이디
+                userName - 작성자 이름
+              */}
               <Comments
                 id={req.match.params.id}
                 userId={userId}
@@ -195,7 +210,7 @@ const PostDetail = (req) => {
     </>
   );
 
-  console.log(comments, "Comments");
+  console.log(comments, "잘들어오는 것인가");
   return (
     <div>
       <Helmet title={`Post | ${title}`} />
