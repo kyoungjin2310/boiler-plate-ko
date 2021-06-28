@@ -47,6 +47,8 @@ export default function (state = initialState, action) {
     case POSTS_LOADING_SUCCESS:
       return {
         ...state,
+        //routes/api/post.js의 result값이 action.payload
+        //action.payload - postFindResult, categoryFindResult, postCount 값
         posts: [...state.posts, ...action.payload.postFindResult],
         categoryFindResult: action.payload.categoryFindResult,
         postCount: action.payload.postCount,

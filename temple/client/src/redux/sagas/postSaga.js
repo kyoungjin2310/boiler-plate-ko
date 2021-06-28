@@ -76,6 +76,7 @@ function* uploadPosts(action) {
     //call을 사용하면 특정 함수를 호출하고, 결과물이 반환 될 때까지 기다림
     //call - API 함수에 넣어주고 싶은 인자는 call 함수의 두번째 인자부터 순서대로 넣음
     //api 통신할때는 call
+    //routes/api/post.js의 result값이 action.payload
     const result = yield call(uploadPostAPI, action.payload);
     console.log(result, "uploadPostAPI, action.payload");
     yield put({

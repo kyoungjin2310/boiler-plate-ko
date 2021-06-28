@@ -7,7 +7,9 @@ const Categroy = ({ posts }) => {
   return (
     <>
       {Array.isArray(posts)
-        ? posts.map(({ _id, categoryName, posts }) => (
+        ? //_id, categoryName, posts - 콘솔로 찍어서 알수있음
+          posts.map(({ _id, categoryName, posts }) => (
+            //key - 고유값을 써야함
             <div key={_id} className="mx-1 mt-1 my_category">
               <Link
                 to={`/post/category/${categoryName}`}

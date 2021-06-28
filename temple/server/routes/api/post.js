@@ -330,4 +330,27 @@ router.post("/:id/edit", auth, async (req, res, next) => {
   }
 });
 
+//category
+router.get("/category/:categoryName", async (req, res, next) => {
+  try {
+    //findOne - "posts" 에서 하나를 찾음
+    const result = await Category.findOne(
+      {
+        categoryName: {
+          //mongoDB에서 사용하는 메소드 - $regex, $options
+          $regex: req.params.categoryName,
+          //$options - mongoDB 옵션, 덜 민감하게 정규표현식을 매칭해서 찾으라는 의미
+          $options: "i",
+        },
+      },
+      "posts"
+    ).populate({ path: "posts" });
+    console.log(result, "Category Find result");
+    res.send(result);
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
+
 export default router;
