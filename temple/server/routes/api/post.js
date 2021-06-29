@@ -64,6 +64,7 @@ router.post("/image", uploadS3.array("upload", 5), async (req, res, next) => {
 //  @desc     More Loading Posts
 //  @access   public
 //api/post - 백엔드, 프론트엔드 주소 다르게 하기 위해서 길게씀
+//.get - route, routing이라고 함, 페이지 생성
 router.get("/skip/:skip", async (req, res) => {
   try {
     const postCount = await Post.countDocuments();
@@ -343,6 +344,7 @@ router.get("/category/:categoryName", async (req, res, next) => {
           $options: "i",
         },
       },
+      //Category에서 posts메소드에서 찾기
       "posts"
     ).populate({ path: "posts" });
     console.log(result, "Category Find result");

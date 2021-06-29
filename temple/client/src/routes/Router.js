@@ -23,6 +23,7 @@ const MyRouter = () => (
         <Route path="/post/:id" exact component={PostDetail} />
         <EditProtectedRoute path="/post/:id/edit" exact component={PostEdit} />
         <Route
+          //useParams에서 categoryName을 사용
           path="/post/category/:categoryName"
           exact
           component={CategoryResult}

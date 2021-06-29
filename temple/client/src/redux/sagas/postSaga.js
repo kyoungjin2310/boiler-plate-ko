@@ -240,6 +240,7 @@ function* watchPostEditUpload() {
 
 // Category Find
 const CategoryFindAPI = (payload) => {
+  //encodeURIComponent - utf-8 문자를 제대로 나오게 함
   return axios.get(`/api/post/category/${encodeURIComponent(payload)}`);
 };
 
@@ -274,6 +275,7 @@ function* SearchResult(action) {
       type: SEARCH_SUCCESS,
       payload: result.data,
     });
+    //검색결과 목록으로 넘어가기
     yield put(push(`/search/${encodeURIComponent(action.payload)}`));
   } catch (e) {
     yield put({

@@ -137,6 +137,7 @@ export default function (state = initialState, action) {
     case CATEGORY_FIND_REQUEST:
       return {
         ...state,
+        //posts를 빈배열로 만들기 - 홈의 posts와 카테고리 찾으려는 posts와 겹치지 않게 하기 위해서
         posts: [],
         loading: true,
       };
@@ -162,7 +163,9 @@ export default function (state = initialState, action) {
     case SEARCH_SUCCESS:
       return {
         ...state,
+        //searchBy - 무엇으로 검색했는지, input창에서 사용할 state
         searchBy: action.payload,
+        //searchResult - 검색화면에서 사용, route에서 쓰는 state
         searchResult: action.payload,
         loading: false,
       };

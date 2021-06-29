@@ -10,6 +10,7 @@ import cors from "cors";
 import postRoutes from "./routes/api/post";
 import userRoutes from "./routes/api/user";
 import authRoutes from "./routes/api/auth";
+import searchRoutes from "./routes/api/search";
 
 import morgan from "morgan";
 
@@ -36,12 +37,11 @@ mongoose
   .catch((e) => console.log(e));
 
 //use routes
-//.get - route, routing이라고 함, 페이지 생성
-app.get("/");
 //app.use - '/api/post'주소로 되는곳에 postRoutes 미들웨어를 적용
 //postRoutes - 파일안에서는 '/api/post' 삭제후 나머지 주소작성
 app.use("/api/post", postRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/search", searchRoutes);
 
 export default app;
