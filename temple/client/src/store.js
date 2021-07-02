@@ -8,6 +8,7 @@ import rootSaga from "./redux/sagas";
 
 export const history = createBrowserHistory();
 
+// saga 미들웨어를 생성
 const sagaMiddleware = createSagaMiddleware();
 
 const initialState = {};
@@ -21,6 +22,7 @@ const composeEnhancer =
 const store = createStore(
   createRootReducer(history),
   initialState,
+  //redux의 미들웨어 사용 - 스토어에 mount
   composeEnhancer(applyMiddleware(...middlewares))
 );
 sagaMiddleware.run(rootSaga);

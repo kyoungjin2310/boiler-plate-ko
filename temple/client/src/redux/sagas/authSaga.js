@@ -72,7 +72,7 @@ function* watchlogout() {
   yield takeEvery(LOGOUT_REQUEST, logout);
 }
 
-// Register
+// Register - 회원가입
 
 const registerUserAPI = (req) => {
   console.log(req, "req");
@@ -119,7 +119,7 @@ function* watchclearError() {
   yield takeEvery(CLEAR_ERROR_REQUEST, clearError);
 }
 
-// User Loading
+// User Loading - 유저 불러오기
 
 const userLoadingAPI = (token) => {
   console.log(token);
@@ -158,6 +158,7 @@ function* watchuserLoading() {
 // Edit Password
 
 const EditPasswordAPI = (payload) => {
+  console.log(payload, "EditPasswordAPI");
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -168,6 +169,7 @@ const EditPasswordAPI = (payload) => {
   if (token) {
     config.headers["x-auth-token"] = token;
   }
+  //payload값을 먼저넘겨야 config에서 값을 받음
   return axios.post(`/api/user/${payload.userName}/profile`, payload, config);
 };
 
@@ -177,9 +179,12 @@ function* EditPassword(action) {
     const result = yield call(EditPasswordAPI, action.payload);
     yield put({
       type: PASSWORD_EDIT_UPLOADING_SUCCESS,
+      //payload는 reducer로 가는 값
       payload: result.data,
     });
+    console.log(result, "result");
   } catch (e) {
+    console.log(action.payload, "result error");
     yield put({
       type: PASSWORD_EDIT_UPLOADING_FAILURE,
       payload: e.response,

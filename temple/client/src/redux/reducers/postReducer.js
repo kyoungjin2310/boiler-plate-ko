@@ -36,12 +36,12 @@ const initialState = {
   searchResult: "",
 };
 
+//eslint-disable-next-line
 export default function (state = initialState, action) {
   switch (action.type) {
     case POSTS_LOADING_REQUEST:
       return {
         ...state,
-
         loading: true,
       };
     case POSTS_LOADING_SUCCESS:
