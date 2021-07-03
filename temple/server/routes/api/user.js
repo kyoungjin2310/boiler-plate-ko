@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
 // @access public - 모든사람이 접근
 
 router.post("/", (req, res) => {
-  console.log(req);
+  console.log(req, "home");
   // req.body안에 데이터가 담김
   const { name, email, password } = req.body;
 
@@ -99,12 +99,11 @@ router.post("/:userName/profile", auth, async (req, res) => {
     //req.body가 제대로 들어오는지 확인
     console.log(req.body, "userName Profile");
     const result = await User.findById(userId, "password");
-
     //비교
     bcrypt.compare(previousPassword, result.password).then((isMatch) => {
       if (!isMatch) {
         return res.status(400).json({
-          match_msg: "기존 비밀번호와 일치하지 않습니다",
+          match_msg: `기존 비밀번호와 일치하지 않습니다`,
         });
       } else {
         if (password === rePassword) {
@@ -120,9 +119,9 @@ router.post("/:userName/profile", auth, async (req, res) => {
             .status(200)
             .json({ success_msg: "비밀번호 업데이트에 성공했습니다" });
         } else {
-          res
-            .status(400)
-            .json({ fail_msg: "새로운 비밀번호가 일치하지 않습니다" });
+          res.status(400).json({
+            fail_msg: "새로운 비밀번호가 일치하지 않습니다",
+          });
         }
       }
     });

@@ -78,7 +78,10 @@ const PostCardList = () => {
       <Row className="border-bottom border-top border-primary py-2 mb-3 ">
         <Category posts={categoryFindResult} />
       </Row>
-
+      {/*
+        posts ? -> post가 있으면
+        GrowingSpinner - post가 없을때 로딩화면
+      */}
       <Row>{posts ? <PostCardOne posts={posts} /> : GrowingSpinner}</Row>
 
       <div ref={lastPostElementRef}>{loading && GrowingSpinner}</div>

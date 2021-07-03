@@ -9,6 +9,7 @@ import {
   Row,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+//FontAwesomeIcon - 글꼴, 기호
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMouse } from "@fortawesome/free-solid-svg-icons";
 
@@ -16,7 +17,8 @@ const PostCardOne = ({ posts }) => {
   return (
     <Fragment>
       {Array.isArray(posts)
-        ? posts.map(({ _id, title, fileUrl, comments, views }) => {
+        ? //react container
+          posts.map(({ _id, title, fileUrl, comments, views }) => {
             return (
               <div key={_id} className="col-md-4">
                 <Link

@@ -210,7 +210,6 @@ const PostDetail = (req) => {
     </>
   );
 
-  console.log(comments, "잘들어오는 것인가");
   return (
     <div>
       <Helmet title={`Post | ${title}`} />
