@@ -8,13 +8,12 @@ import {
   NavItem,
   Form,
   Button,
+  Link,
 } from "reactstrap";
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { LOGOUT_REQUEST, POSTS_WRITE_REQUEST } from "../redux/types";
 import LoginModal from "../components/auth/LoginModal";
 import RegisterModal from "../components/auth/RegisterModal";
-import SearchInput from "../components/search/searchInput";
 
 const AppNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -104,13 +103,16 @@ const AppNavbar = () => {
     <Fragment>
       <Navbar color="dark" dark expand="lg" className="sticky-top">
         <Container>
-          <Link to="/" className="text-white text-decoration-none">
-            Home
-          </Link>
           <NavbarToggler onClick={handleToggle} />
           <Collapse isOpen={isOpen} navbar>
-            <SearchInput isOpen={isOpen} />
+            {/* <SearchInput isOpen={isOpen} /> */}
             <Nav className="ml-auto d-felx justify-content-around" navbar>
+              <NavItem className="nav-link">
+                <Link to="#">Home</Link>
+              </NavItem>
+              <NavItem className="nav-link">
+                <Link to="#">portfolio</Link>
+              </NavItem>
               {isAuthenticated ? authLink : guestLink}
             </Nav>
           </Collapse>

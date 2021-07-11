@@ -1,3 +1,12 @@
+html {
+  width: 100%;
+}
+
+body {
+  height: 100%;
+  width: 100vw;
+}
+
 #main-footer {
   font-family: "Roboto", sans-serif;
   background: #343a40;
@@ -15,6 +24,9 @@
 }
 
 #main-body {
+  max-width: 100%;
+  padding: 0;
+
   font-family: "Noto Sans KR", sans-serif;
   min-height: 90vh;
 }
@@ -43,11 +55,6 @@
   min-width: 100%;
 }
 
-html {
-  width: 100vw;
-  overflow-x: hidden;
-}
-
 //textarea 가장자리 모양 안보이게 하기
 textarea {
   resize: none;
@@ -57,4 +64,27 @@ textarea {
   &:last-child {
     margin-bottom: 0.25rem;
   }
+}
+
+.mainSection {
+  height: 100vh;
+  background-color: skyblue;
+}
+
+.container1 {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+.section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: pink;
+  scroll-snap-align: start;
+}
+
+.one.section {
+  background-color: #fff;
 }
