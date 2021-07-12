@@ -7,23 +7,9 @@ import { animated, useSpring } from "react-spring";
 
 const Main = () => {
   const scrollDestinationRef = useRef();
-  const [y, setY] = useSpring(() => ({
-    immediate: false,
-    y: 0,
-    onFrame: (props) => {
-      window.scroll(0, props.y);
-    },
-    config: config.slow,
-  }));
   return (
     <Fragment>
-      <div
-        className="container1"
-        ref={scrollDestinationRef}
-        onClick={() => {
-          setY({ y: scrollDestinationRef.current.getBoundingClientRect().top });
-        }}
-      >
+      <div className="container1">
         <section className="one section" id="home">
           <FirstPage />
         </section>

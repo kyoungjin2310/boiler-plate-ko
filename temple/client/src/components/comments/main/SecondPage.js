@@ -1,10 +1,7 @@
 import React from "react";
-import { Element } from "react-scroll";
 
 const SecondPage = () => {
-  return (
-    <Element name="portfolio" className="section" id="portfolio"></Element>
-  );
+  return <div name="portfolio" className="section" id="portfolio"></div>;
 };
 
 export default SecondPage;

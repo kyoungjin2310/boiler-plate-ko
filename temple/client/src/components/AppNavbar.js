@@ -1,4 +1,10 @@
-import React, { Fragment, useState, useCallback, useEffect } from "react";
+import React, {
+  Fragment,
+  useState,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 import {
   Navbar,
   Container,
@@ -8,13 +14,13 @@ import {
   NavItem,
   Form,
   Button,
-  Link,
 } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { LOGOUT_REQUEST, POSTS_WRITE_REQUEST } from "../redux/types";
 import LoginModal from "../components/auth/LoginModal";
 import RegisterModal from "../components/auth/RegisterModal";
-
+import { Link } from "react-router-dom";
+import { links } from "./main/data";
 const AppNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { isAuthenticated, user, userRole } = useSelector(
@@ -22,6 +28,7 @@ const AppNavbar = () => {
   );
   console.log(userRole, "UserRole");
 
+  const targetId = useRef([]);
   const dispatch = useDispatch();
 
   const onLogout = useCallback(() => {
@@ -42,6 +49,13 @@ const AppNavbar = () => {
     dispatch({
       type: POSTS_WRITE_REQUEST,
     });
+  };
+
+  const hendleClick = (e) => {
+    e.preventDefault();
+    const target = e.target.getAttribute("href");
+    const element = document.querySelector(target.slice(1));
+    console.log(element);
   };
 
   const authLink = (
@@ -107,12 +121,20 @@ const AppNavbar = () => {
           <Collapse isOpen={isOpen} navbar>
             {/* <SearchInput isOpen={isOpen} /> */}
             <Nav className="ml-auto d-felx justify-content-around" navbar>
-              <NavItem className="nav-link">
-                <Link to="#">Home</Link>
-              </NavItem>
-              <NavItem className="nav-link">
-                <Link to="#">portfolio</Link>
-              </NavItem>
+              {links.map((link) => {
+                return (
+                  <NavItem className="nav-link">
+                    <Link
+                      to={link.url}
+                      key={link.id}
+                      ref={(elem) => (targetId.current[link.id - 1] = elem)}
+                      onClick={hendleClick}
+                    >
+                      {link.text}
+                    </Link>
+                  </NavItem>
+                );
+              })}
               {isAuthenticated ? authLink : guestLink}
             </Nav>
           </Collapse>
