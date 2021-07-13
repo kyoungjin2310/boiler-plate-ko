@@ -5,7 +5,7 @@ html {
 
 body {
   height: 100%;
-  width: 100vw;
+  width: 100%;
 }
 
 #main-footer {
@@ -82,4 +82,9 @@ textarea {
 
 .one.section {
   background-color: #fff;
+}
+
+.sticky-top {
+  position: fixed;
+  width: 100%;
 }

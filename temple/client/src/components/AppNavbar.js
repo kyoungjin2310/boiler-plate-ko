@@ -21,6 +21,8 @@ import LoginModal from "../components/auth/LoginModal";
 import RegisterModal from "../components/auth/RegisterModal";
 import { Link } from "react-router-dom";
 import { links } from "./main/data";
+import { animated, useSpring } from "react-spring";
+
 const AppNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { isAuthenticated, user, userRole } = useSelector(
@@ -55,8 +57,16 @@ const AppNavbar = () => {
     e.preventDefault();
     const target = e.target.getAttribute("href");
     const element = document.querySelector(target.slice(1));
-    console.log(element);
+    const location = element.offsetTop;
+    console.log(location);
+    window.scrollTo({
+      left: 0,
+      top: location,
+    });
   };
+
+  const el = targetId.current[0];
+  console.log(targetId.current, "0");
 
   const authLink = (
     <Fragment>
