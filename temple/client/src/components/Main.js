@@ -1,90 +1,65 @@
 import React, { useEffect, useState, Fragment, useRef } from "react";
 // import { Pagination, PageItem } from "react-bootstrap";
 //import ReactPageScroller from "react-page-scroller";
-import FirstPage from "./comments/main/FirstPage";
-import SecondPage from "./comments/main/SecondPage";
-import { animated, useSpring } from "react-spring";
+import FirstPage from "./main/FirstPage";
+import SecondPage from "./main/SecondPage";
+import { config, useSpring } from "react-spring";
+import * as easings from "d3-ease";
+import { animateScroll } from "./main/animationScroll";
+import { links } from "./main/data";
 
 const Main = () => {
-  const [y, setY] = useSpring(() => ({ y: 0 }));
   const scrollDestinationRef = useRef("");
-  let isStopped = false;
+  let isStopped = true;
 
   const onWheel = (e) => {
     const el = scrollDestinationRef.current.children;
     isStopped = true;
     const arr = Array.prototype.slice.call(el);
     const result = arr.filter((item) => !item.className.indexOf("on"));
-    console.log(result);
     if (isStopped) {
-      isStopped = false;
+      let targetValue;
+      let i = arr.indexOf(arr[0]);
+      console.log(i, "i");
+
       if (e.deltaY < 0) {
-        const value = scrollDestinationRef.current.children[0].offsetTop;
-        console.log("up");
-        setY({
-          reset: true,
-          from: { y: window.scrollY },
-          to: { y: window.scrollTo(0, value) },
-          onRest: () => {
-            isStopped = false;
-          },
-          onFrame: (props) => {
-            if (!isStopped) {
-              window.scroll(0, props.y);
-            }
-          },
+        const initialPosition = window.scrollY;
+        const duration = 200;
+        targetValue = scrollDestinationRef.current.children[i - 1];
+        console.log(scrollDestinationRef.current.children[i - 1], "up");
+        if (targetValue === undefined) {
+          return;
+        }
+        arr[i].className.add("on");
+        animateScroll({
+          targetPosition: targetValue.offsetTop,
+          initialPosition,
+          duration,
         });
       }
       if (e.deltaY > 0) {
-        const value = scrollDestinationRef.current.children[1].offsetTop;
-        console.log("down");
-        setY({
-          reset: true,
-          from: { y: window.scrollY },
-          to: { y: window.scrollTo(0, value) },
-          onRest: () => {
-            isStopped = false;
-          },
-          onFrame: (props) => {
-            if (!isStopped) {
-              window.scroll(0, props.y);
-            }
-          },
+        const initialPosition = window.scrollY;
+        const duration = 200;
+        targetValue = scrollDestinationRef.current.children[i + 1];
+        console.log(scrollDestinationRef.current.children[i + 1], "down");
+        if (targetValue === undefined) {
+          return;
+        }
+        animateScroll({
+          targetPosition: targetValue.offsetTop,
+          initialPosition,
+          duration,
         });
-        isStopped = false;
       }
+      isStopped = false;
     }
   };
 
-  const scrollToTarget = () => {
-    const element = scrollDestinationRef.current;
-    const value = window.scrollY + element.getBoundingClientRect().top;
-
-    window.addEventListener("wheel", onWheel);
-
-    setY({
-      y: value,
-      reset: true,
-      from: { y: window.scrollY },
-      onRest: () => {
-        isStopped = false;
-        window.removeEventListener("wheel", onWheel);
-      },
-      onFrame: (props) => {
-        if (!isStopped) {
-          window.scroll(0, props.y);
-        }
-      },
-    });
-  };
+  window.addEventListener("wheel", onWheel);
 
   return (
     <Fragment>
-      <div
-        className="container1"
-        ref={scrollDestinationRef}
-        onWheel={scrollToTarget}
-      >
+      <div className="container1" ref={scrollDestinationRef}>
         <section className="one section on" id="home">
           <FirstPage />
         </section>

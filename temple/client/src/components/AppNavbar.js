@@ -21,10 +21,11 @@ import LoginModal from "../components/auth/LoginModal";
 import RegisterModal from "../components/auth/RegisterModal";
 import { Link } from "react-router-dom";
 import { links } from "./main/data";
-import { animated, useSpring } from "react-spring";
+import { animateScroll } from "./main/animationScroll";
 
 const AppNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [active, setActive] = useState("");
   const { isAuthenticated, user, userRole } = useSelector(
     (state) => state.auth
   );
@@ -55,18 +56,26 @@ const AppNavbar = () => {
 
   const hendleClick = (e) => {
     e.preventDefault();
+    console.log(window.location.hash, "hash");
     const target = e.target.getAttribute("href");
     const element = document.querySelector(target.slice(1));
+    let url = target.slice(1);
+    setActive(
+      links.map((link) =>
+        link.url === url ? { ...link, active: !link.active } : link
+      )
+    );
+    window.history.pushState(null, null, target);
     const location = element.offsetTop;
-    console.log(location);
-    window.scrollTo({
-      left: 0,
-      top: location,
+    console.log(links[0].url, "id");
+    const initialPosition = window.scrollY;
+    const duration = 200;
+    animateScroll({
+      targetPosition: location,
+      initialPosition,
+      duration,
     });
   };
-
-  const el = targetId.current[0];
-  console.log(targetId.current, "0");
 
   const authLink = (
     <Fragment>
@@ -137,8 +146,8 @@ const AppNavbar = () => {
                     <Link
                       to={link.url}
                       key={link.id}
-                      ref={(elem) => (targetId.current[link.id - 1] = elem)}
                       onClick={hendleClick}
+                      className={link.active ? "on" : null}
                     >
                       {link.text}
                     </Link>
