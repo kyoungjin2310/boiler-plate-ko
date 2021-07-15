@@ -3,10 +3,7 @@ import React, { useEffect, useState, Fragment, useRef } from "react";
 //import ReactPageScroller from "react-page-scroller";
 import FirstPage from "./main/FirstPage";
 import SecondPage from "./main/SecondPage";
-import { config, useSpring } from "react-spring";
-import * as easings from "d3-ease";
 import { animateScroll } from "./main/animationScroll";
-import { links } from "./main/data";
 
 const Main = () => {
   const scrollDestinationRef = useRef("");
