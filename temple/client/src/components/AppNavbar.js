@@ -19,11 +19,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { LOGOUT_REQUEST, POSTS_WRITE_REQUEST } from "../redux/types";
 import LoginModal from "../components/auth/LoginModal";
 import RegisterModal from "../components/auth/RegisterModal";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { links } from "./main/data";
 import { animateScroll } from "./main/animationScroll";
 
 const AppNavbar = () => {
+  let history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState("");
   const { isAuthenticated, user, userRole } = useSelector(
@@ -65,7 +66,8 @@ const AppNavbar = () => {
         link.url === url ? { ...link, active: !link.active } : link
       )
     );
-    window.history.pushState(null, null, target);
+    history.push(target);
+    // window.history.pushState(null, null, target);
     const location = element.offsetTop;
     console.log(links[0].url, "id");
     const initialPosition = window.scrollY;

@@ -4,6 +4,7 @@ import React, { useEffect, useState, Fragment, useRef } from "react";
 import FirstPage from "./main/FirstPage";
 import SecondPage from "./main/SecondPage";
 import { animateScroll } from "./main/animationScroll";
+import { useHistory } from "react-router-dom";
 
 const Main = () => {
   const scrollDestinationRef = useRef("");
@@ -22,12 +23,12 @@ const Main = () => {
       if (e.deltaY < 0) {
         const initialPosition = window.scrollY;
         const duration = 200;
-        targetValue = scrollDestinationRef.current.children[i - 1];
-        console.log(scrollDestinationRef.current.children[i - 1], "up");
+        targetValue = scrollDestinationRef.current.children[0];
+        console.log(scrollDestinationRef.current.children[0], "up");
         if (targetValue === undefined) {
           return;
         }
-        arr[i].className.add("on");
+        arr[0].classList.add("on");
         animateScroll({
           targetPosition: targetValue.offsetTop,
           initialPosition,
@@ -37,8 +38,8 @@ const Main = () => {
       if (e.deltaY > 0) {
         const initialPosition = window.scrollY;
         const duration = 200;
-        targetValue = scrollDestinationRef.current.children[i + 1];
-        console.log(scrollDestinationRef.current.children[i + 1], "down");
+        targetValue = scrollDestinationRef.current.children[1];
+        console.log(scrollDestinationRef.current.children[1], "down");
         if (targetValue === undefined) {
           return;
         }

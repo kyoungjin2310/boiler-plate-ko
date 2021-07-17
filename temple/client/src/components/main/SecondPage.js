@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import {
   Redirect,
   Route,
@@ -6,96 +7,94 @@ import {
   useLocation,
   useParams,
   useHistory,
+  BrowserRouter,
 } from "react-router-dom";
-import styles from "../../assets/custom.scss";
-import classNames from "classnames/bind";
-import { animated } from "react-spring";
-import SecondPageAnimation from "./SecondPageAnimation";
+import styled from "styled-components";
+import { links, portfolioLinks } from "../main/data";
 
-const cx = classNames.bind(styles);
+const IndicatorWrapper = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+`;
 
-const Step1 = () => {
+const Dot = styled.div`
+  width: 12px;
+  height: 12px;
+  border-radius: 6px;
+  background-color: white;
+  opacity: ${(props) => (props.isActive ? 1 : 0.5)};
+  margin: 5px;
+  transition: 750ms all ease-in-out;
+`;
+
+const Indicator = ({ currentSlide, amountSlides }) => {
   return (
-    <div className={cx("box")}>
-      <Link to={"/2"} className={cx("link")}>
-        A
-      </Link>
-    </div>
+    <IndicatorWrapper>
+      {Array(amountSlides)
+        .fill(1)
+        .map((_, i) => (
+          <Dot key={i} isActive={currentSlide === i} />
+        ))}
+    </IndicatorWrapper>
   );
 };
 
-const Step2 = () => {
-  return (
-    <div className={cx("box")}>
-      <Link to={"/3"} className={cx("link")}>
-        B
-      </Link>
-    </div>
-  );
-};
+const Wrapper = styled.div`
+  border: 3px solid red;
+  height: 100vh;
+  width: 100%;
+  display: nowrap;
+  overflow-x: hidden;
+  position: relative;
+  box-sizing: border-box;
+`;
 
-const Step3 = () => {
-  return (
-    <div className={cx("box")}>
-      <div className={cx("link")}>C</div>
-    </div>
-  );
-};
-const StepWrapper = () => {
-  const location = useLocation();
-  const { id } = useParams();
+const Slide = styled.div`
+  float: left;
+  height: 100vh;
+  width: 100%;
+  flex-shrink: 0;
+  border: 4px solid green;
+  transition: 750ms all ease-in-out;
+`;
 
-  const locations = SecondPageAnimation(location, +id);
+const ChildrenWrapper = styled.div``;
 
-  return locations.map(({ item: location, props, key }) => (
-    <animated.div key={key} style={props}>
-      <Switch location={location}>
-        <Route path={"/1"} exact render={() => <Step1 />} />
-        <Route path={"/2"} exact render={() => <Step2 />}></Route>
-        <Route path={"/3"} exact render={() => <Step3 />}></Route>
-      </Switch>
-    </animated.div>
-  ));
-};
+// const SlideContainer = styled.div``;
 
-const SecondPage = () => {
-  const history = useHistory();
+// const history = useHistory();
+// const location = useLocation();
 
-  const goBack = () => {
-    console.log(history);
-    history.go(-1);
-  };
-  const goNext = () => {
-    if (history.location.pathname === "/1") {
-      history.push("/2");
-      return;
-    }
-    if (history.location.pathname === "/2") {
-      history.push("/3");
-      return;
-    }
-    if (history.location.pathname === "/3") {
-      history.push("/1");
-    }
+const SecondPage = ({ links = portfolioLinks, ...props }) => {
+  const nextSlider = (sliderIndex = currentSlide + 1) => {
+    const newSlideIndex =
+      currentSlide > links.length - 1 ? 0 : currentSlide + 1;
+    setCurrentSlide(newSlideIndex);
   };
 
+  const [currentSlide, setCurrentSlide] = useState(0);
+  console.log(currentSlide, "currentSlide");
   return (
-    <div className={cx("article")}>
-      <button onClick={goBack} className={cx("btn", "left")}>
-        <span role="img" aria-label="back">
-          ⬅️
-        </span>
-      </button>
-      <Switch>
-        <Route path={"/:id"} exact render={() => <StepWrapper />}></Route>
-        <Redirect to={"/1"} />
-      </Switch>
-      <button onClick={goNext} className={cx("btn", "right")}>
-        <span role="img" aria-label="back">
-          ➡️
-        </span>
-      </button>
-    </div>
+    <Wrapper {...props}>
+      <ChildrenWrapper style={{ width: `${links.length * 100}%` }}>
+        {links.map((obj, index) => (
+          <Slide
+            className={obj.text}
+            key={obj.id}
+            style={{
+              marginLeft: index === 0 ? `${currentSlide * 100}` : undefined,
+              width: `${100 / links.length}%`,
+            }}
+          >
+            {obj.text}
+          </Slide>
+        ))}
+      </ChildrenWrapper>
+      <Indicator currentSlide={currentSlide} amountSlides={links.length} />
+    </Wrapper>
   );
 };
 
