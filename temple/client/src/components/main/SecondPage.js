@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import {
   Redirect,
   Route,
@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 import { links, portfolioLinks } from "../main/data";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const IndicatorWrapper = styled.div`
   display: flex;
@@ -30,13 +31,17 @@ const Dot = styled.div`
   transition: 750ms all ease-in-out;
 `;
 
-const Indicator = ({ currentSlide, amountSlides }) => {
+const Indicator = ({ currentSlide, amountSlides, nextSlide }) => {
   return (
     <IndicatorWrapper>
       {Array(amountSlides)
         .fill(1)
         .map((_, i) => (
-          <Dot key={i} isActive={currentSlide === i} />
+          <Dot
+            key={i}
+            isActive={currentSlide === i}
+            onClick={() => nextSlide(i)}
+          />
         ))}
     </IndicatorWrapper>
   );
@@ -46,14 +51,12 @@ const Wrapper = styled.div`
   border: 3px solid red;
   height: 100vh;
   width: 100%;
-  display: nowrap;
   overflow-x: hidden;
   position: relative;
   box-sizing: border-box;
 `;
 
 const Slide = styled.div`
-  float: left;
   height: 100vh;
   width: 100%;
   flex-shrink: 0;
@@ -61,7 +64,17 @@ const Slide = styled.div`
   transition: 750ms all ease-in-out;
 `;
 
-const ChildrenWrapper = styled.div``;
+const ChildrenWrapper = styled.div`
+  height: 350px;
+  display: flex;
+  transition: all 1s ease-out;
+
+  @include mobile {
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+  }
+`;
 
 // const SlideContainer = styled.div``;
 
@@ -69,31 +82,48 @@ const ChildrenWrapper = styled.div``;
 // const location = useLocation();
 
 const SecondPage = ({ links = portfolioLinks, ...props }) => {
-  const nextSlider = (sliderIndex = currentSlide + 1) => {
-    const newSlideIndex =
-      currentSlide > links.length - 1 ? 0 : currentSlide + 1;
-    setCurrentSlide(newSlideIndex);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  console.log(currentSlide, "currentSlide");
+  const nextSlide = (way) => {
+    way === "left"
+      ? setCurrentSlide(currentSlide > 0 ? currentSlide - 1 : 0)
+      : setCurrentSlide(
+          currentSlide + 1 >= links.length ? 0 : currentSlide + 1
+        );
   };
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-  console.log(currentSlide, "currentSlide");
   return (
     <Wrapper {...props}>
-      <ChildrenWrapper style={{ width: `${links.length * 100}%` }}>
+      <FaChevronLeft
+        className="left arrow"
+        onClick={() => {
+          nextSlide();
+        }}
+      />
+      <ChildrenWrapper
+        style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+      >
         {links.map((obj, index) => (
           <Slide
-            className={obj.text}
-            key={obj.id}
-            style={{
-              marginLeft: index === 0 ? `${currentSlide * 100}` : undefined,
-              width: `${100 / links.length}%`,
-            }}
+            className={index === currentSlide ? "slide active" : "slide"}
+            key={index}
           >
             {obj.text}
           </Slide>
         ))}
       </ChildrenWrapper>
-      <Indicator currentSlide={currentSlide} amountSlides={links.length} />
+      <FaChevronRight
+        className="right arrow"
+        onClick={() => {
+          nextSlide();
+        }}
+      />
+      <Indicator
+        currentSlide={currentSlide}
+        amountSlides={links.length}
+        nextSlide={nextSlide}
+      />
     </Wrapper>
   );
 };

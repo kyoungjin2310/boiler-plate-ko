@@ -73,10 +73,10 @@ textarea {
 }
 
 .section {
-  height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  position: relative;
   background-color: pink;
 }
 
@@ -92,4 +92,24 @@ textarea {
 .App {
   font-family: sans-serif;
   text-align: center;
+}
+
+article {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+}
+
+.left {
+  left: 0;
+}
+.right {
+  right: 0;
 }
