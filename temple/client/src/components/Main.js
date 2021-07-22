@@ -18,27 +18,40 @@ const Main = () => {
   const [isStopped, setIsStopped] = useState(true);
   const elRefs = useRef([]);
   const arr = [];
-  const totalWheel = links.length;
 
-  const onWheel = (e) => {
-    const initialPosition = window.scrollY;
-    const duration = 100;
-    if (isStopped) {
-      e.deltaY < 0
-        ? setCurrentWheel(currentWheel > 0 ? currentWheel - 1 : null)
-        : setCurrentWheel(
-            currentWheel + 1 > links.length ? null : currentWheel + 1
-          );
-      let targetValue = arr[currentWheel];
-      console.log(currentWheel, "up down");
-      animateScroll({
-        targetPosition: targetValue,
-        initialPosition,
-        duration,
-      });
-      setIsStopped(false);
-    }
-  };
+  const onWheel = useCallback(
+    (e) => {
+      if (isStopped) {
+        setIsStopped(false);
+        const initialPosition = window.scrollY;
+        const duration = 100;
+        let parentItem = 0;
+        let targetValue;
+        if (e.deltaY < 0) {
+          targetValue = arr[parentItem === 0 ? 0 : parentItem - 1];
+          console.log(targetValue, "up");
+          if (targetValue === undefined) {
+            setIsStopped(true);
+            return;
+          }
+        }
+        if (e.deltaY > 0) {
+          targetValue = arr[parentItem + 1];
+          console.log(targetValue, "down");
+          if (targetValue === undefined) {
+            setIsStopped(true);
+            return;
+          }
+        }
+        animateScroll({
+          targetPosition: targetValue,
+          initialPosition,
+          duration,
+        });
+      }
+    },
+    [isStopped]
+  );
 
   useEffect(() => {
     window.addEventListener("wheel", onWheel);
@@ -49,14 +62,15 @@ const Main = () => {
       <div className="container1">
         {links.map((el, index) => (
           <section
-            className={index === currentWheel ? "section active" : "section"}
+            className={
+              index - 1 === currentWheel ? "section active" : "section"
+            }
             id={el.text}
             key={el.id}
             ref={(el) => el && arr.push(el.offsetTop)}
           >
             {index === 0 ? <FirstPage /> : null}
             {index === 1 ? <SecondPage /> : null}
-            {console.log(arr, "elRefs")}
           </section>
         ))}
       </div>
