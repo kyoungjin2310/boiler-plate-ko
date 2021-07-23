@@ -26,7 +26,7 @@ import { animateScroll } from "./main/animationScroll";
 const AppNavbar = () => {
   let history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
-  const [active, setActive] = useState("");
+  const [active, setActive] = useState(0);
   const { isAuthenticated, user, userRole } = useSelector(
     (state) => state.auth
   );
@@ -55,29 +55,32 @@ const AppNavbar = () => {
     });
   };
 
-  const hendleClick = (e) => {
-    e.preventDefault();
-    console.log(window.location.hash, "hash");
-    const target = e.target.getAttribute("href");
-    const element = document.querySelector(target.slice(1));
-    let url = target.slice(1);
-    setActive(
-      links.map((link) =>
-        link.url === url ? { ...link, active: !link.active } : link
-      )
-    );
-    history.push(target);
-    // window.history.pushState(null, null, target);
-    const location = element.offsetTop;
-    console.log(links[0].url, "id");
-    const initialPosition = window.scrollY;
-    const duration = 200;
-    animateScroll({
-      targetPosition: location,
-      initialPosition,
-      duration,
-    });
-  };
+  const hendleClick = useCallback(
+    (e, id) => {
+      e.preventDefault();
+      console.log(window.location.hash, "hash");
+      const target = e.target.getAttribute("href");
+      const element = document.querySelector(target.slice(1));
+      const location = element.offsetTop;
+      const initialPosition = window.scrollY;
+      const duration = 200;
+      setActive(
+        links.map((link) =>
+          link.id === id ? { ...link, active: !link.active } : link
+        )
+      );
+      console.log(links, "active");
+      console.log(id, "active");
+      history.push(target);
+      // window.history.pushState(null, null, target);
+      animateScroll({
+        targetPosition: location,
+        initialPosition,
+        duration,
+      });
+    },
+    [setActive]
+  );
 
   const authLink = (
     <Fragment>
@@ -142,13 +145,13 @@ const AppNavbar = () => {
           <Collapse isOpen={isOpen} navbar>
             {/* <SearchInput isOpen={isOpen} /> */}
             <Nav className="ml-auto d-felx justify-content-around" navbar>
-              {links.map((link) => {
+              {links.map((link, index) => {
                 return (
                   <NavItem className="nav-link">
                     <Link
                       to={link.url}
                       key={link.id}
-                      onClick={hendleClick}
+                      onClick={(e) => hendleClick(e, link.id)}
                       className={link.active ? "on" : null}
                     >
                       {link.text}

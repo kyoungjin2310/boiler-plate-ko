@@ -14,34 +14,40 @@ import { useHistory } from "react-router-dom";
 import { links } from "./main/data";
 
 const Main = () => {
-  const [currentWheel, setCurrentWheel] = useState(0);
   const [isStopped, setIsStopped] = useState(true);
   const elRefs = useRef([]);
   const arr = [];
+  let history = useHistory();
 
   const onWheel = useCallback(
     (e) => {
       if (isStopped) {
         setIsStopped(false);
         const initialPosition = window.scrollY;
-        const duration = 100;
+        const duration = 250;
         let parentItem = 0;
         let targetValue;
+        for (let i = 0; i < arr.length; i++) {
+          arr[i].classList.remove("active");
+        }
         if (e.deltaY < 0) {
-          targetValue = arr[parentItem === 0 ? 0 : parentItem - 1];
-          console.log(targetValue, "up");
-          if (targetValue === undefined) {
-            setIsStopped(true);
-            return;
-          }
+          let target = arr[parentItem === 0 ? 0 : parentItem - 1];
+          targetValue = target.offsetTop;
+          history.push(`#${target.id}`);
+          target.classList.add("active");
+          console.log(target.indexOf, "up");
         }
         if (e.deltaY > 0) {
-          targetValue = arr[parentItem + 1];
-          console.log(targetValue, "down");
-          if (targetValue === undefined) {
-            setIsStopped(true);
-            return;
-          }
+          let target =
+            arr[parentItem === 0 ? parentItem + 1 : links.length - 1];
+          history.push(`#${target.id}`);
+          targetValue = target.offsetTop;
+          target.classList.add("active");
+          console.log(target.indexOf, "down");
+        }
+        if (targetValue === undefined) {
+          setIsStopped(true);
+          return;
         }
         animateScroll({
           targetPosition: targetValue,
@@ -55,20 +61,13 @@ const Main = () => {
 
   useEffect(() => {
     window.addEventListener("wheel", onWheel);
-  });
+  }, [isStopped]);
 
   return (
     <Fragment>
       <div className="container1">
         {links.map((el, index) => (
-          <section
-            className={
-              index - 1 === currentWheel ? "section active" : "section"
-            }
-            id={el.text}
-            key={el.id}
-            ref={(el) => el && arr.push(el.offsetTop)}
-          >
+          <section id={el.text} key={el.id} ref={(el) => el && arr.push(el)}>
             {index === 0 ? <FirstPage /> : null}
             {index === 1 ? <SecondPage /> : null}
           </section>
