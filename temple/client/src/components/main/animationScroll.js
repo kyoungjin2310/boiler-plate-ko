@@ -14,7 +14,6 @@ export function animateScroll({ targetPosition, initialPosition, duration }) {
   let start;
   let position;
   let animationFrame;
-
   const requestAnimationFrame = window.requestAnimationFrame;
   const cancelAnimationFrame = window.cancelAnimationFrame;
 
