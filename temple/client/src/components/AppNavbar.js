@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useState,
-  useCallback,
-  useEffect,
-  useRef,
-} from "react";
+import React, { Fragment, useState, useCallback, useEffect } from "react";
 import {
   Navbar,
   Container,
@@ -22,17 +16,17 @@ import RegisterModal from "../components/auth/RegisterModal";
 import { Link, useHistory } from "react-router-dom";
 import { links } from "./main/data";
 import { animateScroll } from "./main/animationScroll";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
 const AppNavbar = () => {
   let history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(links);
   const { isAuthenticated, user, userRole } = useSelector(
     (state) => state.auth
   );
   console.log(userRole, "UserRole");
 
-  const targetId = useRef([]);
   const dispatch = useDispatch();
 
   const onLogout = useCallback(() => {
@@ -65,21 +59,20 @@ const AppNavbar = () => {
       const initialPosition = window.scrollY;
       const duration = 200;
       setActive(
-        links.map((link) =>
+        active.map((link) =>
           link.id === id ? { ...link, active: !link.active } : link
         )
       );
-      console.log(links, "active");
-      console.log(id, "active");
+      console.log(active, "links");
+      console.log(id, "id");
       history.push(target);
-      // window.history.pushState(null, null, target);
       animateScroll({
         targetPosition: location,
         initialPosition,
         duration,
       });
     },
-    [setActive]
+    [active]
   );
 
   const authLink = (
@@ -145,16 +138,20 @@ const AppNavbar = () => {
           <Collapse isOpen={isOpen} navbar>
             {/* <SearchInput isOpen={isOpen} /> */}
             <Nav className="ml-auto d-felx justify-content-around" navbar>
-              {links.map((link, index) => {
+              {active.map((link, index) => {
                 return (
                   <NavItem className="nav-link">
                     <Link
                       to={link.url}
                       key={link.id}
                       onClick={(e) => hendleClick(e, link.id)}
-                      className={link.active ? "on" : null}
+                      className={link.active ? "on" : ""}
                     >
-                      {link.text}
+                      {link.id === 1 ? (
+                        <FontAwesomeIcon icon={faHome}></FontAwesomeIcon>
+                      ) : (
+                        link.text
+                      )}
                     </Link>
                   </NavItem>
                 );

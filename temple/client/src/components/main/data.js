@@ -11,6 +11,24 @@ export const links = [
     url: "#portfolio",
     active: false,
   },
+  {
+    id: 3,
+    text: "about",
+    url: "#about",
+    active: false,
+  },
+  {
+    id: 4,
+    text: "skills",
+    url: "#skills",
+    active: false,
+  },
+  {
+    id: 5,
+    text: "github",
+    url: "https://github.com/kyoungjin2310/boiler-plate-ko",
+    active: false,
+  },
 ];
 
 export const portfolioLinks = [

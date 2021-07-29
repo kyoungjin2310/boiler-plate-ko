@@ -3,7 +3,10 @@ import React from "react";
 const FirstPage = () => {
   return (
     <div name="main" className="mainSection" id="main">
-      <section className="one"></section>
+      <h1 className="mainTitle">
+        <span>KYOUNGJIN</span>
+        <span>PORTFOLIO</span>
+      </h1>
     </div>
   );
 };

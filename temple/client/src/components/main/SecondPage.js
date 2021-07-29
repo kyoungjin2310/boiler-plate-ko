@@ -48,19 +48,18 @@ const Indicator = ({ currentSlide, amountSlides, nextSlide }) => {
 };
 
 const Wrapper = styled.div`
-  border: 3px solid red;
   height: 100vh;
   width: 100%;
   overflow-x: hidden;
   position: relative;
   box-sizing: border-box;
+  background: #929292;
 `;
 
 const Slide = styled.div`
   height: 100vh;
   width: 100%;
   flex-shrink: 0;
-  border: 4px solid green;
   transition: 750ms all ease-in-out;
 `;
 
