@@ -83,7 +83,6 @@ const ChildrenWrapper = styled.div`
 const SecondPage = ({ links = portfolioLinks, ...props }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  console.log(currentSlide, "currentSlide");
   const nextSlide = (way) => {
     way === "left"
       ? setCurrentSlide(currentSlide > 0 ? currentSlide - 1 : 0)

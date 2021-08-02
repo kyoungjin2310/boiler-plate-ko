@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import AppNavbar from "../components/AppNavbar";
 import { Container } from "reactstrap";
 import { Switch, Route, Redirect } from "react-router-dom";
 import PostWrite from "./normalRoute/PostWrite";
@@ -16,7 +15,6 @@ import {
 
 const MyRouter = () => (
   <Fragment>
-    <AppNavbar />
     <Container id="main-body">
       <Switch>
         <Route path="/" exact component={Main} />

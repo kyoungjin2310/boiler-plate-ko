@@ -1,83 +1,137 @@
-import React, { useEffect, Fragment, useCallback } from "react";
+import React, {
+  Fragment,
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+} from "react";
 import FirstPage from "./main/FirstPage";
 import SecondPage from "./main/SecondPage";
-import { animateScroll } from "./main/animationScroll";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { links } from "./main/data";
+import {
+  Navbar,
+  Container,
+  NavbarToggler,
+  Collapse,
+  Nav,
+  NavItem,
+} from "reactstrap";
+
+const LEN = links.length;
+
+function useThrottle(fn, delay) {
+  let timer = useRef(null);
+  return function (...args) {
+    if (!timer.current) {
+      fn.apply(null, args);
+      timer.current = setTimeout(() => {
+        timer.current = null;
+      }, delay);
+    }
+  };
+}
 
 const Main = () => {
-  const arr = [];
+  const [curPage, setCurPage] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const [active, setActive] = useState(links);
+  const arr = active.map((n) => n.url);
   let history = useHistory();
-  let enableClick = true;
-  const duration = 250;
 
-  const scrollAnimated = (target, initialPosition) => {
-    let targetValue;
-    for (let i = 0; i < arr.length; i++) {
-      arr[i].classList.remove("active");
-    }
-    targetValue = target.offsetTop;
-    target.classList.add("active");
-    animateScroll({
-      targetPosition: targetValue,
-      initialPosition,
-      duration,
-    });
-    history.push(`#${target.id}`);
-    console.log(target, "target");
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
   };
 
-  const onWheel = useCallback(
-    (e) => {
-      const initialPosition = window.scrollY || window.pageYOffset;
-      console.log(e);
+  const setHistory = useCallback(() => {
+    const sectionArr = links.map((n) => n.url);
+    console.log(sectionArr);
+    const target = document.querySelector(".full-page");
+    const targetValue = -(parseInt(target.style.top) / 100);
+    history.push(sectionArr[targetValue]);
+  }, [curPage]);
+
+  const handleWheel = useThrottle((e) => {
+    let delta = e.deltaY;
+    if (delta < 0) {
+      setCurPage(Math.max(curPage - 1, 0));
+      console.log(curPage < 0 ? arr[0] : arr[curPage - 1], "curPage up");
+    } else {
+      setCurPage(Math.min(curPage + 1, LEN - 1));
+      console.log(curPage, "curPage down");
+    }
+  }, 500);
+
+  const hendleClick = useCallback(
+    (e, id) => {
+      const target = e.target.getAttribute("href");
       e.preventDefault();
-      let parentItem = 0;
-      let num;
-      const timer = () => (enableClick = true);
-      if (e.deltaY < 0 && enableClick) {
-        enableClick = false;
-        setTimeout(timer, duration);
-        num = parentItem === 0 ? 0 : parentItem - 1;
-        let target = arr[num];
-        scrollAnimated(target, initialPosition);
-        console.log(enableClick, "e.deltaY < 0");
-      }
-      if (e.deltaY > 0 && enableClick) {
-        setTimeout(timer, duration);
-        num = parentItem + 1 >= links.length ? 0 : parentItem + 1;
-        console.log(parentItem, "parentItem");
-        let target = arr[num];
-        if (num === undefined) {
-          enableClick = false;
-        }
-        scrollAnimated(target, initialPosition);
-        console.log(enableClick, "e.deltaY > 0");
-      }
+      setCurPage(id - 1);
+      setActive(
+        active.map((link) =>
+          link.id === id ? { ...link, active: !link.active } : link
+        )
+      );
+      console.log(active, "links");
+      console.log(id, "id");
+      history.push(target);
     },
-    [enableClick]
+    [active]
   );
 
   useEffect(() => {
-    window.addEventListener("wheel", onWheel, { passive: false });
-  }, [enableClick]);
+    setHistory();
+  }, [curPage]);
 
   return (
-    <Fragment>
-      <div className="container1">
+    <div className="mainContainer" onWheel={(e) => handleWheel(e)}>
+      <Fragment>
+        <Navbar color="dark" dark expand="lg" className="sticky-top">
+          <Container>
+            <NavbarToggler onClick={handleToggle} />
+            <Collapse isOpen={isOpen} navbar>
+              {/* <SearchInput isOpen={isOpen} /> */}
+              <Nav className="ml-auto d-felx justify-content-around" navbar>
+                {active.map((link, index) => {
+                  return (
+                    <NavItem className="nav-link">
+                      <Link
+                        to={link.url}
+                        key={link.id}
+                        onClick={(e) => hendleClick(e, link.id)}
+                        className={link.active ? "on" : ""}
+                      >
+                        {link.text}
+                      </Link>
+                    </NavItem>
+                  );
+                })}
+              </Nav>
+            </Collapse>
+          </Container>
+        </Navbar>
+      </Fragment>
+      <div
+        className="full-page"
+        style={{
+          position: "relative",
+          height: "100vh",
+          top: `-${curPage * 100}vh`,
+          transition: "top 0.5s ease",
+        }}
+      >
         {links.map((el, index) => (
           <section
-            className="mainSection"
+            className={curPage === index ? "mainSection active" : "mainSection"}
             id={el.text}
             key={el.id}
-            ref={(el) => el && arr.push(el)}
           >
             {index === 0 ? <FirstPage /> : null}
             {index === 1 ? <SecondPage /> : null}
           </section>
         ))}
       </div>
-    </Fragment>
+    </div>
   );
 };
 
