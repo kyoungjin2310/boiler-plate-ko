@@ -136,8 +136,10 @@ const AppNavbar = () => {
         <Container>
           <NavbarToggler onClick={handleToggle} />
           <Collapse isOpen={isOpen} navbar>
-            {/* <SearchInput isOpen={isOpen} /> */}
             <Nav className="ml-auto d-felx justify-content-around" navbar>
+              <NavItem className="nav-link">
+                <Link to="https://github.com/kyoungjin2310">gitHub</Link>
+              </NavItem>
               {active.map((link, index) => {
                 return (
                   <NavItem className="nav-link">
@@ -156,6 +158,7 @@ const AppNavbar = () => {
                   </NavItem>
                 );
               })}
+
               {isAuthenticated ? authLink : guestLink}
             </Nav>
           </Collapse>

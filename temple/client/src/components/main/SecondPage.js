@@ -1,16 +1,6 @@
-import { useRef, useState, useCallback } from "react";
-import {
-  Redirect,
-  Route,
-  Switch,
-  Link,
-  useLocation,
-  useParams,
-  useHistory,
-  BrowserRouter,
-} from "react-router-dom";
+import { useState, useCallback } from "react";
 import styled from "styled-components";
-import { links, portfolioLinks } from "../main/data";
+import { portfolioLinks } from "../main/data";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const IndicatorWrapper = styled.div`
@@ -74,11 +64,6 @@ const ChildrenWrapper = styled.div`
     justify-content: center;
   }
 `;
-
-// const SlideContainer = styled.div``;
-
-// const history = useHistory();
-// const location = useLocation();
 
 const SecondPage = ({ links = portfolioLinks, ...props }) => {
   const [currentSlide, setCurrentSlide] = useState(0);

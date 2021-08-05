@@ -70,11 +70,6 @@ textarea {
   height: 100%;
   background-color: #ece7e3;
 }
-.sticky-top {
-  position: fixed;
-  width: 100%;
-  background: none !important;
-}
 
 .App {
   font-family: sans-serif;
@@ -102,9 +97,31 @@ article {
 }
 
 //menu
-.mainTitle {
-  background-color: #fff;
+
+.navbar-collapse {
+  position: relative;
 }
+
+.menuHome,
+.gitHubIcon {
+  font-size: 1.3em;
+}
+
+.gitHubIcon {
+  margin-right: 5px;
+}
+.navbar-dark .navbar-nav .nav-link.gitHub {
+  position: absolute;
+  right: 0;
+  font-weight: bold;
+}
+.sticky-top {
+  position: fixed;
+  width: 100%;
+  background: #ece7e3 !important;
+  border-bottom: 1px solid rgba($color: #000000, $alpha: 0.2);
+}
+
 .navbar-dark .navbar-nav .nav-link {
   color: #2e2e2e;
   font-family: "Roboto";
@@ -116,8 +133,22 @@ article {
 .navbar-dark .navbar-nav .nav-link a {
   color: #2e2e2e;
   text-decoration: none;
+  transition: 0.25s ease;
+  cursor: pointer;
+}
+.navbar-dark .navbar-nav .nav-link a.on,
+.navbar-dark .navbar-nav .nav-link a:hover {
+  color: #c37f56;
 }
 
+.navbar-dark .navbar-nav .nav-link a.on .menuHome {
+  color: #2e2e2e;
+  transition: 0.25s ease;
+}
+
+.navbar-dark .navbar-nav .nav-link a:hover .menuHome {
+  color: #c37f56;
+}
 .navbar-dark .navbar-nav .nav-link:focus,
 .navbar-dark .navbar-nav .nav-link:hover {
   color: #d6a994;
@@ -129,6 +160,121 @@ article {
   height: 100vh;
 }
 
+.navbar > .container,
+.navbar > .container-fluid,
+.navbar > .container-lg,
+.navbar > .container-md,
+.navbar > .container-sm,
+.navbar > .container-xl,
+.navbar > .container-xxl {
+  max-width: 100%;
+}
+
 .container1 {
   height: 100vh;
+}
+
+//first page
+.scrollDown {
+  position: absolute;
+  right: 0;
+  height: 1px;
+  bottom: 20%;
+}
+.scrollDown::after {
+  content: "";
+  display: block;
+  clear: both;
+  width: 1px;
+  height: 200px;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.scrollDown .text {
+  display: block;
+  transform: rotate(90deg);
+  background: #ece7e3;
+  padding: 0 10px;
+  font-family: "Roboto";
+}
+// section
+.sectionCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.mainBgSvg {
+  position: absolute;
+  top: 55%;
+}
+.svg2 {
+  padding-left: -50px;
+}
+
+//title
+.titleWrap {
+  position: relative;
+  z-index: 100;
+  text-align: center;
+}
+.titleWrap p {
+  letter-spacing: -0.5px;
+  font-size: 1em;
+  color: #605f5f;
+}
+.mainTitle {
+  padding: 30px 40px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.mainTitle span {
+  display: block;
+  overflow: hidden;
+}
+
+.titleName1 {
+  height: 0;
+  font-family: "Merriweather Sans", sans-serif;
+  font-size: 1.5em;
+  animation-name: main1;
+  animation-duration: 0.3s;
+  animation-duration: cubic-bezier(0, 0.55, 0.45, 1);
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-delay: 1000ms;
+}
+@keyframes main1 {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 80px;
+  }
+}
+
+.titleName2 {
+  height: 0;
+  border-top: 1px solid #929292;
+  font-family: "Merriweather Sans", sans-serif;
+  font-size: 3em;
+  animation-name: main2;
+  animation-duration: 0.7s;
+  animation-duration: cubic-bezier(0, 0.55, 0.45, 1);
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-delay: 1100ms;
+}
+@keyframes main2 {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 130px;
+  }
+}
+
+.blob-gradient {
+  fill: rgba($color: #e6bca3, $alpha: 0.46);
 }

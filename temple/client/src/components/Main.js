@@ -17,7 +17,9 @@ import {
   Nav,
   NavItem,
 } from "reactstrap";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 const LEN = links.length;
 
 function useThrottle(fn, delay) {
@@ -64,7 +66,6 @@ const Main = () => {
 
   const hendleClick = useCallback(
     (e, id) => {
-      const target = e.target.getAttribute("href");
       e.preventDefault();
       setCurPage(id - 1);
       setActive(
@@ -72,9 +73,6 @@ const Main = () => {
           link.id === id ? { ...link, active: !link.active } : link
         )
       );
-      console.log(active, "links");
-      console.log(id, "id");
-      history.push(target);
     },
     [active]
   );
@@ -101,11 +99,21 @@ const Main = () => {
                         onClick={(e) => hendleClick(e, link.id)}
                         className={link.active ? "on" : ""}
                       >
-                        {link.text}
+                        {link.id === 1 ? (
+                          <FontAwesomeIcon icon={faHome} className="menuHome" />
+                        ) : (
+                          link.text
+                        )}
                       </Link>
                     </NavItem>
                   );
                 })}
+                <NavItem className="nav-link gitHub">
+                  <a href="https://github.com/kyoungjin2310" target="_blank">
+                    <FontAwesomeIcon icon={faGithub} className="gitHubIcon" />
+                    GitHub
+                  </a>
+                </NavItem>
               </Nav>
             </Collapse>
           </Container>

@@ -1,25 +1,25 @@
 export const links = [
   {
     id: 1,
-    text: "home",
+    text: "Home",
     url: "#home",
     active: true,
   },
   {
     id: 2,
-    text: "portfolio",
+    text: "Portfolio",
     url: "#portfolio",
     active: false,
   },
   {
     id: 3,
-    text: "about",
+    text: "About",
     url: "#about",
     active: false,
   },
   {
     id: 4,
-    text: "skills",
+    text: "Skills",
     url: "#skills",
     active: false,
   },
