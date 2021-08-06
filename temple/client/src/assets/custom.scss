@@ -85,15 +85,33 @@ article {
 
 .arrow {
   position: absolute;
-  top: 50%;
+  top: 40%;
   z-index: 10;
+  font-size: 17em;
+  color: rgba($color: #efd2c0, $alpha: 0.5);
+  cursor: pointer;
+  transition: 0.25s ease;
 }
 
 .left {
-  left: 0;
+  left: 0.6em;
+  margin-left: 0;
 }
+.left:hover {
+  margin-left: -25px;
+  transform: scaleX(-20px);
+  color: rgba($color: #efd2c0, $alpha: 1);
+}
+
 .right {
-  right: 0;
+  right: 0.6em;
+  margin-right: 0;
+}
+
+.right:hover {
+  margin-right: -25px;
+  transform: scaleX(-20px);
+  color: rgba($color: #efd2c0, $alpha: 1);
 }
 
 //menu
@@ -109,11 +127,25 @@ article {
 
 .gitHubIcon {
   margin-right: 5px;
+  cursor: pointer;
 }
-.navbar-dark .navbar-nav .nav-link.gitHub {
+.gitHub {
+  display: inline-block;
   position: absolute;
   right: 0;
+  z-index: 100;
   font-weight: bold;
+  font-family: "Roboto";
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  color: #2e2e2e;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.gitHub:hover {
+  color: #c37f56;
 }
 .sticky-top {
   position: fixed;
@@ -135,6 +167,7 @@ article {
   text-decoration: none;
   transition: 0.25s ease;
   cursor: pointer;
+  font-weight: 500;
 }
 .navbar-dark .navbar-nav .nav-link a.on,
 .navbar-dark .navbar-nav .nav-link a:hover {
@@ -243,7 +276,7 @@ article {
   animation-duration: cubic-bezier(0, 0.55, 0.45, 1);
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
-  animation-delay: 1000ms;
+  animation-delay: 600ms;
 }
 @keyframes main1 {
   0% {
@@ -260,11 +293,11 @@ article {
   font-family: "Merriweather Sans", sans-serif;
   font-size: 3em;
   animation-name: main2;
-  animation-duration: 0.7s;
+  animation-duration: 0.6s;
   animation-duration: cubic-bezier(0, 0.55, 0.45, 1);
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
-  animation-delay: 1100ms;
+  animation-delay: 700ms;
 }
 @keyframes main2 {
   0% {
@@ -277,4 +310,143 @@ article {
 
 .blob-gradient {
   fill: rgba($color: #e6bca3, $alpha: 0.46);
+}
+
+//Second page
+.cardWrap {
+  height: 100%;
+  padding: 0 15em;
+}
+
+.card-body {
+  padding: 0;
+  overflow: hidden;
+  width: 50%;
+}
+
+.card {
+  max-width: 1250px;
+  margin: auto;
+  height: 100%;
+  flex-direction: row;
+  border-radius: inherit;
+  border: none;
+}
+
+.card-img-top {
+  height: 100%;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
+.card-title {
+  position: absolute;
+  top: -13%;
+  left: -3%;
+  font-size: 12em;
+  color: #fff;
+  font-family: "Trochut", cursive;
+  font-weight: 900;
+}
+
+.card-subtitle {
+  margin: 0;
+  padding-bottom: 25px;
+  color: #222 !important;
+  font-size: 3.1em;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 500;
+  letter-spacing: -2px;
+  border-bottom: 3px solid #222;
+}
+
+.cardSubTitle {
+  font-size: 0.7em;
+  margin-left: 10px;
+  color: #aaa;
+}
+
+.cardExplan {
+  padding: 70px 36px;
+  box-sizing: border-box;
+}
+
+.card-text {
+  margin-top: 30px;
+  margin-bottom: 25px;
+}
+
+.cardList {
+  display: flex;
+  width: calc(50% - 72px);
+  flex-wrap: inherit;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  right: 36px;
+  bottom: 90px;
+  margin: 0;
+  padding: 10px 0;
+  border-top: 1px solid #c8c8c8;
+  border-bottom: 1px solid #c8c8c8;
+}
+
+.cardList li {
+  list-style: none;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  font-size: 1.3em;
+  letter-spacing: 0;
+  font-family: "Roboto";
+  font-weight: 400;
+}
+
+.cardLink {
+  position: relative;
+  color: #b77d62;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cardLink::after {
+  content: "";
+  display: block;
+  clear: both;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0px;
+  height: 1px;
+  background-color: #b77d62;
+  transition: width 0.25s ease;
+}
+
+.cardLink:hover {
+  color: #b77d62;
+}
+
+.cardLink:hover::after {
+  width: 100%;
+}
+
+.visitSite {
+  padding: 0.375rem 1.3rem;
+  border: 1px solid #939393;
+  border-radius: 0;
+  background: #fff;
+  color: #222;
+  font-family: "Merriweather Sans";
+  font-size: 1.2em;
+  letter-spacing: 0;
+}
+
+.visitSite:hover {
+  background-color: hsl(19, 51%, 69%);
+  border-color: hsl(19, 51%, 69%);
+}
+
+.btnArrow {
+  font-size: 1.3em;
+  margin-left: 10px;
 }

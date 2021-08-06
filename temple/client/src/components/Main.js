@@ -20,6 +20,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import ThirdPage from "./main/ThirdPage";
 const LEN = links.length;
 
 function useThrottle(fn, delay) {
@@ -87,12 +88,20 @@ const Main = () => {
         <Navbar color="dark" dark expand="lg" className="sticky-top">
           <Container>
             <NavbarToggler onClick={handleToggle} />
+            <a
+              href="https://github.com/kyoungjin2310"
+              target="_blank"
+              className="gitHub"
+            >
+              <FontAwesomeIcon icon={faGithub} className="gitHubIcon" />
+              GitHub
+            </a>
             <Collapse isOpen={isOpen} navbar>
               {/* <SearchInput isOpen={isOpen} /> */}
               <Nav className="ml-auto d-felx justify-content-around" navbar>
                 {active.map((link, index) => {
                   return (
-                    <NavItem className="nav-link">
+                    <NavItem className="nav-link" key={link.id}>
                       <Link
                         to={link.url}
                         key={link.id}
@@ -108,12 +117,6 @@ const Main = () => {
                     </NavItem>
                   );
                 })}
-                <NavItem className="nav-link gitHub">
-                  <a href="https://github.com/kyoungjin2310" target="_blank">
-                    <FontAwesomeIcon icon={faGithub} className="gitHubIcon" />
-                    GitHub
-                  </a>
-                </NavItem>
               </Nav>
             </Collapse>
           </Container>
@@ -125,7 +128,7 @@ const Main = () => {
           position: "relative",
           height: "100vh",
           top: `-${curPage * 100}vh`,
-          transition: "top 0.5s ease",
+          transition: "top 1.2s cubic-bezier(0.76, 0, 0.24, 1)",
         }}
       >
         {links.map((el, index) => (
@@ -136,6 +139,7 @@ const Main = () => {
           >
             {index === 0 ? <FirstPage /> : null}
             {index === 1 ? <SecondPage /> : null}
+            {index === 2 ? <ThirdPage /> : null}
           </section>
         ))}
       </div>

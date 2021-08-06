@@ -1,7 +1,17 @@
 import { useState, useCallback } from "react";
+import {
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Button,
+} from "reactstrap";
 import styled from "styled-components";
 import { portfolioLinks } from "../main/data";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 const IndicatorWrapper = styled.div`
   display: flex;
@@ -38,23 +48,24 @@ const Indicator = ({ currentSlide, amountSlides, nextSlide }) => {
 };
 
 const Wrapper = styled.div`
+  padding: calc(10em + 56px) 0 10em;
   height: 100vh;
   width: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
   position: relative;
   box-sizing: border-box;
   background: #929292;
 `;
 
 const Slide = styled.div`
-  height: 100vh;
+  height: 100%;
   width: 100%;
   flex-shrink: 0;
   transition: 750ms all ease-in-out;
 `;
 
 const ChildrenWrapper = styled.div`
-  height: 350px;
+  height: 100%;
   display: flex;
   transition: all 1s ease-out;
 
@@ -78,7 +89,7 @@ const SecondPage = ({ links = portfolioLinks, ...props }) => {
 
   return (
     <Wrapper {...props}>
-      <FaChevronLeft
+      <BsArrowLeft
         className="left arrow"
         onClick={() => {
           nextSlide();
@@ -90,13 +101,56 @@ const SecondPage = ({ links = portfolioLinks, ...props }) => {
         {links.map((obj, index) => (
           <Slide
             className={index === currentSlide ? "slide active" : "slide"}
-            key={index}
+            key={obj.id}
           >
-            {obj.text}
+            <div className="cardWrap">
+              <Card>
+                <CardBody>
+                  <CardImg
+                    top
+                    width="100%"
+                    src={`/images/${obj.src}`}
+                    alt={obj.alt}
+                  />
+                </CardBody>
+                <CardBody className="cardExplan">
+                  <CardTitle tag="h5">
+                    {obj.id < 10 ? "0" + obj.id : obj.id}
+                  </CardTitle>
+                  <CardSubtitle tag="h6" className="mb-2 text-muted">
+                    {obj.title}
+                    <span className="cardSubTitle">{obj.subTitle}</span>
+                  </CardSubtitle>
+                  <CardText>{obj.text}</CardText>
+                  <ul className="cardList">
+                    {obj.skills.map((list, index) => (
+                      <li key={index}>
+                        {list === "GitHub" ? (
+                          <a
+                            className="cardLink"
+                            href={obj.gitHubUrl}
+                            target="_blank"
+                            title="깃허브 바로가기"
+                          >
+                            {list}
+                          </a>
+                        ) : (
+                          list
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                  <Button className="visitSite">
+                    Visit Site
+                    <BsArrowRight className="btnArrow" />
+                  </Button>
+                </CardBody>
+              </Card>
+            </div>
           </Slide>
         ))}
       </ChildrenWrapper>
-      <FaChevronRight
+      <BsArrowRight
         className="right arrow"
         onClick={() => {
           nextSlide();
