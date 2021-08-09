@@ -135,7 +135,7 @@ article {
   right: 0;
   z-index: 100;
   font-weight: bold;
-  font-family: "Roboto";
+  font-family: "Roboto", sans-serif;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
   color: #2e2e2e;
@@ -156,7 +156,7 @@ article {
 
 .navbar-dark .navbar-nav .nav-link {
   color: #2e2e2e;
-  font-family: "Roboto";
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
@@ -207,7 +207,7 @@ article {
   height: 100vh;
 }
 
-//first page
+//Home(first page)
 .scrollDown {
   position: absolute;
   right: 0;
@@ -228,7 +228,7 @@ article {
   transform: rotate(90deg);
   background: #ece7e3;
   padding: 0 10px;
-  font-family: "Roboto";
+  font-family: "Roboto", sans-serif;
 }
 // section
 .sectionCenter {
@@ -312,10 +312,10 @@ article {
   fill: rgba($color: #e6bca3, $alpha: 0.46);
 }
 
-//Second page
+//Portfolio(Second page)
 .cardWrap {
   height: 100%;
-  padding: 0 15em;
+  padding: 0 20px;
 }
 
 .card-body {
@@ -397,7 +397,7 @@ article {
   padding-left: 1.5rem;
   font-size: 1.3em;
   letter-spacing: 0;
-  font-family: "Roboto";
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
 }
 
@@ -449,4 +449,38 @@ article {
 .btnArrow {
   font-size: 1.3em;
   margin-left: 10px;
+}
+
+//About(thirdPage)
+.AboutWrap {
+  box-sizing: border-box;
+  padding-top: 57px;
+}
+
+.About {
+  margin: 20px;
+}
+
+.AboutTitle {
+  font-family: "Roboto", sans-serif;
+}
+
+.AboutTitle .color {
+  font-size: 0.7em;
+  color: #b77d62;
+  letter-spacing: -1px;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.AboutList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  letter-spacing: -0.5px;
+}
+
+.AboutListTitle {
+  font-weight: 400;
+  color: #222;
+  text-decoration: none;
 }
