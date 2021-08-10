@@ -10,7 +10,6 @@ import {
 } from "reactstrap";
 import styled from "styled-components";
 import { portfolioLinks } from "../main/data";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 const IndicatorWrapper = styled.div`

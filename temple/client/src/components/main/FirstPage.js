@@ -5,7 +5,6 @@ import blobs from "blobs";
 const options = {
   complexity: 0.3,
   contrast: 0.1,
-  // guides: true,
   size: 1700,
   color: "#FF94E7",
   stroke: 0,
@@ -14,7 +13,6 @@ const options = {
 const options2 = {
   complexity: 0.3,
   contrast: 0.1,
-  // guides: true,
   size: 2000,
   color: "#FF94E7",
   stroke: 0,

@@ -1,7 +1,9 @@
 html {
   width: 100%;
 }
-
+a:hover {
+  cursor: pointer;
+}
 body {
   height: 100%;
   width: 100%;
@@ -166,7 +168,6 @@ article {
   color: #2e2e2e;
   text-decoration: none;
   transition: 0.25s ease;
-  cursor: pointer;
   font-weight: 500;
 }
 .navbar-dark .navbar-nav .nav-link a.on,
@@ -451,36 +452,103 @@ article {
   margin-left: 10px;
 }
 
-//About(thirdPage)
-.AboutWrap {
+//career(thirdPage)
+.careerWrap {
+  height: 100%;
+  max-width: 1250px;
   box-sizing: border-box;
-  padding-top: 57px;
+  padding: 7em 0;
+  margin: auto;
 }
 
-.About {
-  margin: 20px;
+.career {
+  position: relative;
+  height: 100%;
+  background: #b09582;
 }
 
-.AboutTitle {
+.careerBg {
+  width: 50%;
+  padding: 30px 40px;
+  box-sizing: border-box;
+  height: 100%;
+  background-color: #fff;
+}
+
+.careerTitle {
   font-family: "Roboto", sans-serif;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 
-.AboutTitle .color {
+.careerTitle .color {
   font-size: 0.7em;
   color: #b77d62;
   letter-spacing: -1px;
   font-family: "Noto Sans KR", sans-serif;
 }
 
-.AboutList {
+.careerList {
   padding: 0;
   margin: 0;
   list-style: none;
   letter-spacing: -0.5px;
 }
 
-.AboutListTitle {
+.careerList li {
+  margin-bottom: 2px;
+}
+
+.careerListTitle {
   font-weight: 400;
   color: #222;
   text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.careerListTitle:hover {
+  color: #b77d62;
+}
+
+.careerDetails {
+  position: absolute;
+  top: 0;
+  right: 0;
+  visibility: hidden;
+  opacity: 0;
+  width: 50%;
+  padding: 60px;
+  height: 100%;
+  transition: 0.25s ease;
+  color: #fff;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+li.active .careerDetails {
+  visibility: visible;
+  opacity: 1;
+}
+
+.careerDetails p {
+  margin-bottom: 0;
+}
+
+.careerWarp {
+  border: 6px double rgba($color: #fff, $alpha: 0.5);
+  padding: 50px;
+}
+
+.careerWarp .title {
+  margin-bottom: 13px;
+  line-height: 1.4em;
+}
+
+.date {
+  margin-top: 2px;
+  letter-spacing: 0;
 }

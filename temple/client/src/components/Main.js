@@ -21,6 +21,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import ThirdPage from "./main/ThirdPage";
+import LastPage from "./main/LastPage";
 const LEN = links.length;
 
 function useThrottle(fn, delay) {
@@ -140,6 +141,7 @@ const Main = () => {
             {index === 0 ? <FirstPage /> : null}
             {index === 1 ? <SecondPage /> : null}
             {index === 2 ? <ThirdPage /> : null}
+            {index === 3 ? <LastPage /> : null}
           </section>
         ))}
       </div>

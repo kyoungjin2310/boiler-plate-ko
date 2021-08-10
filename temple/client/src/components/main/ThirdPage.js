@@ -1,22 +1,43 @@
-import React, { useState, useRef, useLayoutEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { careerList } from "../main/data";
 
 const ThirdPage = () => {
+  const [curNum, setNum] = useState(0);
+  const hendleClick = useCallback(
+    (e, index) => {
+      e.preventDefault();
+      setNum(index);
+    },
+    [curNum]
+  );
   return (
-    <div className="AboutWrap">
-      <div className="About">
-        <h3 className="AboutTitle">
-          career <span className="color">(퍼블리싱 - 2년 9개월)</span>
-        </h3>
-        <ul className="AboutList">
-          {careerList.map((item, index) => (
-            <li key={index}>
-              <a href="#" className="AboutListTitle">
-                {item.name}
-              </a>
-            </li>
-          ))}
-        </ul>
+    <div className="careerWrap">
+      <div className="career">
+        <div className="careerBg">
+          <h3 className="careerTitle">
+            career <span className="color">(퍼블리싱 - 2년 9개월)</span>
+          </h3>
+          <ul className="careerList">
+            {careerList.map((item, index) => (
+              <li key={index} className={curNum === index ? "active" : null}>
+                <a
+                  href="#"
+                  className="careerListTitle"
+                  onClick={(e) => hendleClick(e, index)}
+                >
+                  {item.name}
+                </a>
+                <div className="careerDetails">
+                  <div className="careerWarp">
+                    <h4 className="title">{item.name}</h4>
+                    <p>{item.details}</p>
+                    <p className="date">{item.detailsDate}</p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

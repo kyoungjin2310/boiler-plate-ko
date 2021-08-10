@@ -14,14 +14,14 @@ export const links = [
   },
   {
     id: 3,
-    text: "About",
-    url: "#about",
+    text: "Career",
+    url: "#career",
     active: false,
   },
   {
     id: 4,
-    text: "Skills",
-    url: "#skills",
+    text: "About",
+    url: "#About",
     active: false,
   },
 ];
@@ -168,10 +168,21 @@ export const careerList = [
   },
 ];
 
-export const skills = [
+export const about = [
   {
-    Javascript: "",
+    name: "Name",
+    details: "오경진",
   },
-  { React: "" },
-  { redux: "" },
+  {
+    name: "Phone",
+    details: "010-6226-4422",
+  },
+  {
+    name: "Email",
+    details: "kyoungjn2310@gmail.com",
+  },
+  {
+    name: "Skills",
+    details: ["Html5", "Css3", "Scss", "Jquery", "React", "Redux"],
+  },
 ];
