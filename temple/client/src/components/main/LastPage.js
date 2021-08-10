@@ -4,11 +4,11 @@ import { about } from "./data";
 const Lastpage = () => {
   return (
     <div className="about">
-      <h3>About</h3>
+      <h3 className="aboutTitle">About</h3>
       <ul>
         {about.map((list, index) => (
           <li key={index}>
-            <h4>{list.name}</h4>
+            <h4 className="aboutSubTitle">{list.name}</h4>
             {list.name === "Skills" ? (
               <div>
                 <ul>

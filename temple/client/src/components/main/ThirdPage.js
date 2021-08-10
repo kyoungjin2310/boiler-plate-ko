@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { careerList } from "../main/data";
+import { BsXDiamondFill } from "react-icons/bs";
 
 const ThirdPage = () => {
   const [curNum, setNum] = useState(0);
@@ -25,10 +26,11 @@ const ThirdPage = () => {
                   className="careerListTitle"
                   onClick={(e) => hendleClick(e, index)}
                 >
+                  <BsXDiamondFill className="icon" />
                   {item.name}
                 </a>
                 <div className="careerDetails">
-                  <div className="careerWarp">
+                  <div className="careerWarp2">
                     <h4 className="title">{item.name}</h4>
                     <p>{item.details}</p>
                     <p className="date">{item.detailsDate}</p>

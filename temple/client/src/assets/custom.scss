@@ -28,7 +28,6 @@ body {
 #main-body {
   max-width: 100%;
   padding: 0;
-
   font-family: "Noto Sans KR", sans-serif;
   min-height: 90vh;
 }
@@ -99,6 +98,7 @@ article {
   left: 0.6em;
   margin-left: 0;
 }
+
 .left:hover {
   margin-left: -25px;
   transform: scaleX(-20px);
@@ -520,7 +520,8 @@ article {
   width: 50%;
   padding: 60px;
   height: 100%;
-  transition: 0.25s ease;
+  transform: translateY(-50px);
+  transition: 0.5s ease;
   color: #fff;
   box-sizing: border-box;
   display: flex;
@@ -530,6 +531,7 @@ article {
 }
 
 li.active .careerDetails {
+  transform: translateY(0px);
   visibility: visible;
   opacity: 1;
 }
@@ -538,7 +540,7 @@ li.active .careerDetails {
   margin-bottom: 0;
 }
 
-.careerWarp {
+.careerWarp2 {
   border: 6px double rgba($color: #fff, $alpha: 0.5);
   padding: 50px;
 }
@@ -551,4 +553,56 @@ li.active .careerDetails {
 .date {
   margin-top: 2px;
   letter-spacing: 0;
+}
+
+.careerList .icon {
+  position: relative;
+  top: -1px;
+  margin-right: 10px;
+  font-size: 0.7em;
+  color: rgba($color: #c37f56, $alpha: 0.5);
+}
+
+//lastpage(About)
+#About {
+  background-color: #fff;
+}
+
+.about {
+  height: 100%;
+  max-width: 1250px;
+  box-sizing: border-box;
+  padding: calc(7em + 56px) 20px;
+  margin: auto;
+  text-align: center;
+}
+
+.aboutTitle {
+  font-size: 3em;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #ccc;
+}
+
+.aboutTitle,
+.aboutSubTitle {
+  font-family: "Merriweather Sans", sans-serif;
+}
+.aboutTitle {
+  color: #b77d62;
+}
+
+.about ul {
+  padding: 0;
+  margin: 0;
+}
+
+.about li {
+  padding: 0;
+  margin: 0 0 30px;
+  list-style: none;
+}
+
+.about li li {
+  margin-bottom: 5px;
 }

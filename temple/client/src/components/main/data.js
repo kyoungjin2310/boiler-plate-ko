@@ -21,7 +21,7 @@ export const links = [
   {
     id: 4,
     text: "About",
-    url: "#About",
+    url: "#about",
     active: false,
   },
 ];
@@ -107,7 +107,7 @@ export const careerList = [
     detailsDate: "2018/12~2019/01",
   },
   {
-    name: "한국뇌연구원 전자도서관이용자서비스",
+    name: "한국뇌연구원 전자도서관 이용자서비스",
     details: "메인, 서브 퍼블리싱 (반응형)",
     detailsDate: "2018/11~2019/01",
   },
@@ -142,7 +142,7 @@ export const careerList = [
     detailsDate: "2017/11~2018/01",
   },
   {
-    name: "한국직업능력개발원 전자도서관솔루션기능개선및 운영지원",
+    name: "한국직업능력개발원 전자도서관 솔루션기능 개선및 운영지원",
     details: "메인, 서브 퍼블리싱",
     detailsDate: "2017/11~2017/12",
   },
@@ -183,6 +183,13 @@ export const about = [
   },
   {
     name: "Skills",
-    details: ["Html5", "Css3", "Scss", "Jquery", "React", "Redux"],
+    details: [
+      "Html5",
+      "Css3",
+      "Scss",
+      "Jquery",
+      "React",
+      "Redux(Redux-saga, Redux-thunk)",
+    ],
   },
 ];
