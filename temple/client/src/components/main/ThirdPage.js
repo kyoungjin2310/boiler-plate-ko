@@ -16,7 +16,7 @@ const ThirdPage = () => {
       <div className="career">
         <div className="careerBg">
           <h3 className="careerTitle">
-            career <span className="color">(퍼블리싱 - 2년 9개월)</span>
+            Career <span className="color">(퍼블리싱 - 2년 9개월)</span>
           </h3>
           <ul className="careerList">
             {careerList.map((item, index) => (

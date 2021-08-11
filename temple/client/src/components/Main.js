@@ -22,6 +22,7 @@ import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import ThirdPage from "./main/ThirdPage";
 import LastPage from "./main/LastPage";
+import { HiOutlineMenu } from "react-icons/hi";
 const LEN = links.length;
 
 function useThrottle(fn, delay) {
@@ -40,7 +41,6 @@ const Main = () => {
   const [curPage, setCurPage] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState(links);
-  const arr = active.map((n) => n.url);
   let history = useHistory();
 
   const handleToggle = () => {
@@ -59,7 +59,7 @@ const Main = () => {
     let delta = e.deltaY;
     if (delta < 0) {
       setCurPage(Math.max(curPage - 1, 0));
-      console.log(curPage < 0 ? arr[0] : arr[curPage - 1], "curPage up");
+      console.log(curPage, "curPage up");
     } else {
       setCurPage(Math.min(curPage + 1, LEN - 1));
       console.log(curPage, "curPage down");
@@ -88,7 +88,9 @@ const Main = () => {
       <Fragment>
         <Navbar color="dark" dark expand="lg" className="sticky-top">
           <Container>
-            <NavbarToggler onClick={handleToggle} />
+            <NavbarToggler className="menuIconWrap" onClick={handleToggle}>
+              <HiOutlineMenu className="menuIcon" />
+            </NavbarToggler>
             <a
               href="https://github.com/kyoungjin2310"
               target="_blank"
@@ -98,7 +100,6 @@ const Main = () => {
               GitHub
             </a>
             <Collapse isOpen={isOpen} navbar>
-              {/* <SearchInput isOpen={isOpen} /> */}
               <Nav className="ml-auto d-felx justify-content-around" navbar>
                 {active.map((link, index) => {
                   return (
