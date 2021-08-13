@@ -104,7 +104,7 @@ const SecondPage = ({ links = portfolioLinks, ...props }) => {
           >
             <div className="cardWrap">
               <Card>
-                <CardBody>
+                <CardBody className="imgWrap">
                   <CardImg
                     top
                     width="100%"

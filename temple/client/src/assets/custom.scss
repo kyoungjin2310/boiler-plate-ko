@@ -206,6 +206,12 @@ article {
   max-width: 100%;
 }
 
+.full-page {
+  position: relative;
+  height: 100vh;
+  transition: top 1.2s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
 .container1 {
   height: 100vh;
 }
@@ -357,6 +363,9 @@ article {
   padding: 0;
   overflow: hidden;
   width: 50%;
+  @include response(tablet) {
+    width: 100%;
+  }
 }
 
 .card {
@@ -366,6 +375,15 @@ article {
   flex-direction: row;
   border-radius: inherit;
   border: none;
+  @include response(tablet) {
+    display: block;
+  }
+}
+
+.imgWrap {
+  @include response(tablet) {
+    height: 150px;
+  }
 }
 
 .card-img-top {
@@ -382,8 +400,8 @@ article {
   color: #fff;
   font-family: $font-Trochut;
   font-weight: 900;
-  @include response(pc) {
-    left: 0.3em;
+  @include response(tablet) {
+    font-size: 11em;
   }
 }
 
@@ -392,26 +410,42 @@ article {
   padding-bottom: 25px;
   color: $color-black2 !important;
   font-size: 3.1em;
-  font-family: $font-NotoSans;
+  font-family: $font-Roboto;
   font-weight: 500;
-  letter-spacing: -2px;
+  letter-spacing: -1px;
   border-bottom: 3px solid $color-black2;
+  @include response(tablet) {
+    padding-bottom: 15px;
+    font-size: 2.5em;
+  }
 }
 
 .cardSubTitle {
+  font-family: $font-NotoSans;
+  letter-spacing: -2px;
   font-size: 0.7em;
   margin-left: 10px;
   color: #aaa;
+  @include response(tablet) {
+    font-size: 0.6em;
+  }
 }
 
 .cardExplan {
   padding: 70px 36px;
   box-sizing: border-box;
+  @include response(tablet) {
+    padding: 50px;
+  }
 }
 
 .card-text {
   margin-top: 30px;
   margin-bottom: 25px;
+  @include response(tablet) {
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
 }
 
 .cardList {
@@ -427,6 +461,10 @@ article {
   padding: 10px 0;
   border-top: 1px solid #c8c8c8;
   border-bottom: 1px solid #c8c8c8;
+  @include response(tablet) {
+    width: calc(100% - 72px);
+    bottom: 60px;
+  }
 }
 
 .cardList li {
@@ -437,6 +475,11 @@ article {
   letter-spacing: 0;
   font-family: $font-Roboto;
   font-weight: 400;
+  @include response(tablet) {
+    font-size: 1.2em;
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
 }
 
 .cardLink {
@@ -473,6 +516,12 @@ article {
   color: rgba($color: $color-point3, $alpha: 0.5);
   cursor: pointer;
   transition: 0.25s ease;
+  @include response(tablet) {
+    top: 50%;
+    font-size: 60px;
+    background-color: $color-black2;
+    color: #fff;
+  }
 }
 
 .left {
@@ -489,6 +538,14 @@ article {
   @include response(pc2) {
     left: 20px;
   }
+  @include response(tablet) {
+    &:hover {
+      margin-left: 0;
+      transform: scaleX(0px);
+      color: $color-point2;
+      background: $color-point3;
+    }
+  }
 }
 
 .right {
@@ -504,6 +561,14 @@ article {
   }
   @include response(pc2) {
     right: 20px;
+  }
+  @include response(tablet) {
+    &:hover {
+      margin-right: 0;
+      transform: scaleX(0px);
+      color: $color-point2;
+      background: $color-point3;
+    }
   }
 }
 
@@ -543,6 +608,9 @@ article {
   position: relative;
   height: 100%;
   background: #b09582;
+  @include response(tablet) {
+    background: none;
+  }
 }
 
 .careerBg {
@@ -551,6 +619,11 @@ article {
   box-sizing: border-box;
   height: 100%;
   background-color: #fff;
+  overflow: auto;
+  @include response(tablet) {
+    width: 100%;
+    overflow: auto;
+  }
 }
 
 .careerTitle {
@@ -611,6 +684,9 @@ li.active .careerDetails {
   transform: translateY(0px);
   visibility: visible;
   opacity: 1;
+  @include response(tablet) {
+    visibility: hidden;
+  }
 }
 
 .careerDetails p {
@@ -620,6 +696,9 @@ li.active .careerDetails {
 .careerWarp2 {
   border: 6px double rgba($color: #fff, $alpha: 0.5);
   padding: 50px;
+  @include response(tablet) {
+    visibility: hidden;
+  }
 }
 
 .careerWarp .title {
@@ -643,13 +722,14 @@ li.active .careerDetails {
 //lastpage(About)
 #About {
   background-color: #fff;
+  overflow: auto;
 }
 
 .about {
   height: 100%;
   max-width: 1250px;
   box-sizing: border-box;
-  padding: calc(7em + 56px) 40px;
+  padding: calc(7em + 56px) 40px 0;
   margin: auto;
   text-align: center;
 }
@@ -670,7 +750,7 @@ li.active .careerDetails {
 }
 
 .about ul {
-  padding: 0;
+  padding: 0 0 50px;
   margin: 0;
 }
 

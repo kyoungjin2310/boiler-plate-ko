@@ -25,7 +25,7 @@ import LastPage from "./main/LastPage";
 import { HiOutlineMenu } from "react-icons/hi";
 const LEN = links.length;
 
-function useThrottle(fn, delay) {
+const useThrottle = (fn, delay) => {
   let timer = useRef(null);
   return function (...args) {
     if (!timer.current) {
@@ -35,9 +35,21 @@ function useThrottle(fn, delay) {
       }, delay);
     }
   };
-}
+};
+
+const useWindowSize = () => {
+  const [size, setSize] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setSize(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+  }, []);
+  return size;
+};
 
 const Main = () => {
+  const width = useWindowSize();
   const [curPage, setCurPage] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState(links);
@@ -56,13 +68,15 @@ const Main = () => {
   }, [curPage]);
 
   const handleWheel = useThrottle((e) => {
-    let delta = e.deltaY;
-    if (delta < 0) {
-      setCurPage(Math.max(curPage - 1, 0));
-      console.log(curPage, "curPage up");
-    } else {
-      setCurPage(Math.min(curPage + 1, LEN - 1));
-      console.log(curPage, "curPage down");
+    if (width > 1024) {
+      let delta = e.deltaY;
+      if (delta < 0) {
+        setCurPage(Math.max(curPage - 1, 0));
+        console.log(curPage, "curPage up");
+      } else {
+        setCurPage(Math.min(curPage + 1, LEN - 1));
+        console.log(curPage, "curPage down");
+      }
     }
   }, 500);
 
@@ -72,7 +86,9 @@ const Main = () => {
       setCurPage(id - 1);
       setActive(
         active.map((link) =>
-          link.id === id ? { ...link, active: !link.active } : link
+          link.id === id
+            ? { ...link, active: !link.active }
+            : { ...link, active: false }
         )
       );
     },
@@ -101,7 +117,7 @@ const Main = () => {
             </a>
             <Collapse isOpen={isOpen} navbar>
               <Nav className="ml-auto d-felx justify-content-around" navbar>
-                {active.map((link, index) => {
+                {active.map((link) => {
                   return (
                     <NavItem className="nav-link" key={link.id}>
                       <Link
@@ -127,10 +143,7 @@ const Main = () => {
       <div
         className="full-page"
         style={{
-          position: "relative",
-          height: "100vh",
           top: `-${curPage * 100}vh`,
-          transition: "top 1.2s cubic-bezier(0.76, 0, 0.24, 1)",
         }}
       >
         {links.map((el, index) => (
