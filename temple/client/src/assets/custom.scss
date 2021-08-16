@@ -145,7 +145,7 @@ article {
   &:hover {
     color: $color-point1;
   }
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     top: 0.8rem;
   }
 }
@@ -163,7 +163,7 @@ article {
   font-weight: 400;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     &:first-child {
       padding-top: 20px;
     }
@@ -270,7 +270,7 @@ article {
   padding: 30px 40px;
   text-align: center;
   background-color: #fff;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     padding: 25px 35px;
   }
 }
@@ -290,7 +290,7 @@ article {
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   animation-delay: 600ms;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     font-size: 1.3em;
   }
 }
@@ -303,7 +303,7 @@ article {
   }
 }
 
-@include response(tablet) {
+@include response(tablet, mobile) {
   @keyframes main1 {
     0% {
       height: 0;
@@ -325,7 +325,7 @@ article {
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   animation-delay: 700ms;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     font-size: 2.6em;
   }
 }
@@ -338,7 +338,7 @@ article {
   }
 }
 
-@include response(tablet) {
+@include response(tablet, mobile) {
   @keyframes main2 {
     0% {
       height: 0;
@@ -363,7 +363,7 @@ article {
   padding: 0;
   overflow: hidden;
   width: 50%;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     width: 100%;
   }
 }
@@ -375,13 +375,13 @@ article {
   flex-direction: row;
   border-radius: inherit;
   border: none;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     display: block;
   }
 }
 
 .imgWrap {
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     height: 150px;
   }
 }
@@ -400,7 +400,7 @@ article {
   color: #fff;
   font-family: $font-Trochut;
   font-weight: 900;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     font-size: 11em;
   }
 }
@@ -414,7 +414,7 @@ article {
   font-weight: 500;
   letter-spacing: -1px;
   border-bottom: 3px solid $color-black2;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     padding-bottom: 15px;
     font-size: 2.5em;
   }
@@ -426,7 +426,7 @@ article {
   font-size: 0.7em;
   margin-left: 10px;
   color: #aaa;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     font-size: 0.6em;
   }
 }
@@ -434,7 +434,7 @@ article {
 .cardExplan {
   padding: 70px 36px;
   box-sizing: border-box;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     padding: 50px;
   }
 }
@@ -442,7 +442,7 @@ article {
 .card-text {
   margin-top: 30px;
   margin-bottom: 25px;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     margin-top: 15px;
     margin-bottom: 20px;
   }
@@ -461,7 +461,7 @@ article {
   padding: 10px 0;
   border-top: 1px solid #c8c8c8;
   border-bottom: 1px solid #c8c8c8;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     width: calc(100% - 72px);
     bottom: 60px;
   }
@@ -475,7 +475,7 @@ article {
   letter-spacing: 0;
   font-family: $font-Roboto;
   font-weight: 400;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     font-size: 1.2em;
     padding-right: 1rem;
     padding-left: 1rem;
@@ -516,7 +516,7 @@ article {
   color: rgba($color: $color-point3, $alpha: 0.5);
   cursor: pointer;
   transition: 0.25s ease;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     top: 50%;
     font-size: 60px;
     background-color: $color-black2;
@@ -538,7 +538,7 @@ article {
   @include response(pc2) {
     left: 20px;
   }
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     &:hover {
       margin-left: 0;
       transform: scaleX(0px);
@@ -562,7 +562,7 @@ article {
   @include response(pc2) {
     right: 20px;
   }
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     &:hover {
       margin-right: 0;
       transform: scaleX(0px);
@@ -608,7 +608,7 @@ article {
   position: relative;
   height: 100%;
   background: #b09582;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     background: none;
   }
 }
@@ -620,7 +620,7 @@ article {
   height: 100%;
   background-color: #fff;
   overflow: auto;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     width: 100%;
     overflow: auto;
   }
@@ -684,7 +684,7 @@ li.active .careerDetails {
   transform: translateY(0px);
   visibility: visible;
   opacity: 1;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     visibility: hidden;
   }
 }
@@ -696,7 +696,7 @@ li.active .careerDetails {
 .careerWarp2 {
   border: 6px double rgba($color: #fff, $alpha: 0.5);
   padding: 50px;
-  @include response(tablet) {
+  @include response(tablet, mobile) {
     visibility: hidden;
   }
 }

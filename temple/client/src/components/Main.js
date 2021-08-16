@@ -67,6 +67,16 @@ const Main = () => {
     history.push(sectionArr[targetValue]);
   }, [curPage]);
 
+  const number = (id) => {
+    setActive(
+      active.map((link) =>
+        link.id === id
+          ? { ...link, active: !link.active }
+          : { ...link, active: false }
+      )
+    );
+  };
+
   const handleWheel = useThrottle((e) => {
     if (width > 1024) {
       let delta = e.deltaY;
@@ -84,19 +94,13 @@ const Main = () => {
     (e, id) => {
       e.preventDefault();
       setCurPage(id - 1);
-      setActive(
-        active.map((link) =>
-          link.id === id
-            ? { ...link, active: !link.active }
-            : { ...link, active: false }
-        )
-      );
     },
     [active]
   );
 
   useEffect(() => {
     setHistory();
+    number(curPage + 1);
   }, [curPage]);
 
   return (

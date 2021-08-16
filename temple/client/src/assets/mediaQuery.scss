@@ -1,21 +1,15 @@
-@mixin response($breakpoint) {
-  @if $breakpoint == phone {
-    @media screen and (max-width: 767px) {
-      @content;
-    }
-  }
-  @if $breakpoint == tablet {
-    @media screen and (min-width: 768px) and (max-width: 991px) {
-      @content;
-    }
-  }
-  @if $breakpoint == pc {
-    @media screen and (max-width: 1800px) {
-      @content;
-    }
-  }
-  @if $breakpoint == pc2 {
-    @media screen and (max-width: 1640px) {
+//  map holding breakpoint values
+$breakpoints: (
+  mobile: 768px,
+  tablet: 991px,
+  pc: 1800px,
+  pc2: 1640px,
+);
+
+//  mixin to print out media queries (based on map keys passed)
+@mixin response($keys...) {
+  @each $key in $keys {
+    @media screen and (max-width: map-get($breakpoints, $key)) {
       @content;
     }
   }
