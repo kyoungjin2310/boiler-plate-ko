@@ -47,7 +47,6 @@ const Indicator = ({ currentSlide, amountSlides, nextSlide }) => {
 };
 
 const Wrapper = styled.div`
-  padding: calc(10em + 56px) 0 10em;
   height: 100vh;
   width: 100%;
   overflow: hidden;
@@ -87,7 +86,7 @@ const SecondPage = ({ links = portfolioLinks, ...props }) => {
   };
 
   return (
-    <Wrapper {...props}>
+    <Wrapper {...props} className="portfoiloWrap">
       <BsArrowLeft
         className="left arrow"
         onClick={() => {

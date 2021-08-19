@@ -87,6 +87,7 @@ textarea {
 .mainSection {
   height: 100%;
   background-color: $color-bg1;
+  overflow: hidden;
 }
 
 .App {
@@ -145,8 +146,14 @@ article {
   &:hover {
     color: $color-point1;
   }
-  @include response(tablet, mobile) {
+  @include response(tablet) {
     top: 0.8rem;
+  }
+  @include response(mobile) {
+    top: 0.6rem;
+    font-size: 15px;
+    padding-right: 1rem;
+    padding-left: 1rem;
   }
 }
 
@@ -155,6 +162,9 @@ article {
   width: 100%;
   background: $color-bg1 !important;
   border-bottom: 1px solid rgba($color: #000000, $alpha: 0.2);
+  @include response(mobile) {
+    padding: 5px 0;
+  }
 }
 
 .navbar-dark .navbar-nav .nav-link {
@@ -163,9 +173,18 @@ article {
   font-weight: 400;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
-  @include response(tablet, mobile) {
+  @include response(tablet) {
     &:first-child {
       padding-top: 20px;
+    }
+  }
+  @include response(mobile) {
+    padding: 5px 10px;
+    &:first-child {
+      padding-top: 10px;
+    }
+    &:last-child {
+      padding-bottom: 10px;
     }
   }
 }
@@ -178,6 +197,9 @@ article {
   &.on,
   &:hover {
     color: $color-point1;
+  }
+  @include response(mobile) {
+    font-size: 15px;
   }
 }
 
@@ -233,6 +255,9 @@ article {
     margin: auto;
     background-color: rgba(0, 0, 0, 0.5);
   }
+  @include response(tablet, mobile) {
+    display: none;
+  }
 }
 .scrollDown .text {
   display: block;
@@ -250,6 +275,11 @@ article {
 .mainBgSvg {
   position: absolute;
   top: 55%;
+  height: 100vh;
+  overflow: hidden;
+  @include response(mobile) {
+    top: 40%;
+  }
 }
 .svg2 {
   padding-left: -50px;
@@ -265,13 +295,19 @@ article {
   letter-spacing: -0.5px;
   font-size: 1em;
   color: #605f5f;
+  @include response(mobile) {
+    font-size: 14px;
+  }
 }
 .mainTitle {
   padding: 30px 40px;
   text-align: center;
   background-color: #fff;
-  @include response(tablet, mobile) {
+  @include response(tablet) {
     padding: 25px 35px;
+  }
+  @include response(mobile) {
+    padding: 15px 20px;
   }
 }
 
@@ -290,8 +326,11 @@ article {
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   animation-delay: 600ms;
-  @include response(tablet, mobile) {
+  @include response(tablet) {
     font-size: 1.3em;
+  }
+  @include response(mobile) {
+    font-size: 1em;
   }
 }
 @keyframes main1 {
@@ -303,13 +342,23 @@ article {
   }
 }
 
-@include response(tablet, mobile) {
+@include response(tablet) {
   @keyframes main1 {
     0% {
       height: 0;
     }
     100% {
       height: 60px;
+    }
+  }
+}
+@include response(mobile) {
+  @keyframes main1 {
+    0% {
+      height: 0;
+    }
+    100% {
+      height: 1.3em;
     }
   }
 }
@@ -325,8 +374,11 @@ article {
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   animation-delay: 700ms;
-  @include response(tablet, mobile) {
+  @include response(tablet) {
     font-size: 2.6em;
+  }
+  @include response(mobile) {
+    font-size: 1.5em;
   }
 }
 @keyframes main2 {
@@ -338,7 +390,7 @@ article {
   }
 }
 
-@include response(tablet, mobile) {
+@include response(tablet) {
   @keyframes main2 {
     0% {
       height: 0;
@@ -349,14 +401,35 @@ article {
   }
 }
 
+@include response(mobile) {
+  @keyframes main2 {
+    0% {
+      height: 0;
+    }
+    100% {
+      height: 1.1em;
+    }
+  }
+}
+
 .blob-gradient {
   fill: rgba($color: #e6bca3, $alpha: 0.46);
 }
 
 //Portfolio(Second page)
+.portfoiloWrap {
+  padding: calc(10em + 56px) 0 10em;
+  @include response(mobile) {
+    padding: calc(50px + 43px) 0 50px;
+  }
+}
+
 .cardWrap {
   height: 100%;
   padding: 0 40px;
+  @include response(mobile) {
+    padding: 0 20px;
+  }
 }
 
 .card-body {
@@ -382,7 +455,7 @@ article {
 
 .imgWrap {
   @include response(tablet, mobile) {
-    height: 150px;
+    height: 100px;
   }
 }
 
@@ -400,8 +473,14 @@ article {
   color: #fff;
   font-family: $font-Trochut;
   font-weight: 900;
-  @include response(tablet, mobile) {
+  @include response(tablet) {
     font-size: 11em;
+  }
+  @include response(mobile) {
+    top: 10px;
+    left: 10px;
+    font-size: 60px;
+    line-height: 60px;
   }
 }
 
@@ -414,9 +493,13 @@ article {
   font-weight: 500;
   letter-spacing: -1px;
   border-bottom: 3px solid $color-black2;
-  @include response(tablet, mobile) {
+  @include response(tablet) {
     padding-bottom: 15px;
     font-size: 2.5em;
+  }
+  @include response(mobile) {
+    padding-bottom: 10px;
+    font-size: 25px;
   }
 }
 
@@ -426,25 +509,37 @@ article {
   font-size: 0.7em;
   margin-left: 10px;
   color: #aaa;
-  @include response(tablet, mobile) {
+  @include response(tablet) {
     font-size: 0.6em;
+  }
+  @include response(mobile) {
+    margin-left: 5px;
+    font-size: 16px;
   }
 }
 
 .cardExplan {
   padding: 70px 36px;
   box-sizing: border-box;
-  @include response(tablet, mobile) {
+  @include response(tablet) {
     padding: 50px;
+  }
+  @include response(mobile) {
+    padding: 30px;
   }
 }
 
 .card-text {
   margin-top: 30px;
   margin-bottom: 25px;
-  @include response(tablet, mobile) {
+  @include response(tablet) {
     margin-top: 15px;
     margin-bottom: 20px;
+  }
+  @include response(mobile) {
+    font-size: 14px;
+    margin-top: 15px;
+    margin-bottom: 15px;
   }
 }
 
@@ -461,9 +556,14 @@ article {
   padding: 10px 0;
   border-top: 1px solid #c8c8c8;
   border-bottom: 1px solid #c8c8c8;
-  @include response(tablet, mobile) {
+  @include response(tablet) {
     width: calc(100% - 72px);
     bottom: 60px;
+  }
+  @include response(mobile) {
+    padding: 7px 0;
+    width: calc(100% - 72px);
+    bottom: 40px;
   }
 }
 
@@ -475,10 +575,15 @@ article {
   letter-spacing: 0;
   font-family: $font-Roboto;
   font-weight: 400;
-  @include response(tablet, mobile) {
+  @include response(tablet) {
     font-size: 1.2em;
     padding-right: 1rem;
     padding-left: 1rem;
+  }
+  @include response(mobile) {
+    font-size: 14px;
+    padding-right: 5px;
+    padding-left: 5px;
   }
 }
 
@@ -516,11 +621,14 @@ article {
   color: rgba($color: $color-point3, $alpha: 0.5);
   cursor: pointer;
   transition: 0.25s ease;
-  @include response(tablet, mobile) {
+  @include response(tablet) {
     top: 50%;
     font-size: 60px;
     background-color: $color-black2;
     color: #fff;
+  }
+  @include response(mobile) {
+    font-size: 30px;
   }
 }
 
@@ -546,6 +654,9 @@ article {
       background: $color-point3;
     }
   }
+  @include response(mobile) {
+    left: 10px;
+  }
 }
 
 .right {
@@ -570,6 +681,9 @@ article {
       background: $color-point3;
     }
   }
+  @include response(mobile) {
+    right: 10px;
+  }
 }
 
 .visitSite {
@@ -585,6 +699,10 @@ article {
     background-color: hsl(19, 51%, 69%);
     border-color: hsl(19, 51%, 69%);
   }
+  @include response(mobile) {
+    font-size: 14px;
+    padding: 0.35rem 1rem;
+  }
 }
 
 .btnArrow {
@@ -594,7 +712,11 @@ article {
 
 //career(thirdPage)
 #Career {
+  background: #ece7e3;
   padding: 0 40px;
+  @include response(mobile) {
+    padding: 0 20px;
+  }
 }
 .careerWrap {
   height: 100%;
@@ -602,6 +724,9 @@ article {
   box-sizing: border-box;
   padding: 7em 0;
   margin: auto;
+  @include response(mobile) {
+    padding: calc(30px + 43px) 0 30px;
+  }
 }
 
 .career {
@@ -620,9 +745,13 @@ article {
   height: 100%;
   background-color: #fff;
   overflow: auto;
-  @include response(tablet, mobile) {
+  @include response(tablet) {
     width: 100%;
     overflow: auto;
+  }
+  @include response(mobile) {
+    padding: 20px 30px;
+    font-size: 14px;
   }
 }
 
@@ -658,6 +787,11 @@ article {
   transition: 0.25s ease;
   &:hover {
     color: $color-point2;
+  }
+  @include response(tablet, mobile) {
+    &:hover {
+      color: $color-black2;
+    }
   }
 }
 
@@ -723,6 +857,9 @@ li.active .careerDetails {
 #About {
   background-color: #fff;
   overflow: auto;
+  @include response(mobile) {
+    padding: calc(30px + 56px) 20px 0;
+  }
 }
 
 .about {
@@ -732,6 +869,9 @@ li.active .careerDetails {
   padding: calc(7em + 56px) 40px 0;
   margin: auto;
   text-align: center;
+  @include response(mobile) {
+    padding: 0;
+  }
 }
 
 .aboutTitle {
@@ -739,6 +879,11 @@ li.active .careerDetails {
   padding-bottom: 20px;
   margin-bottom: 30px;
   border-bottom: 1px solid $color-grey;
+  @include response(mobile) {
+    font-size: calc(1.3rem + 0.6vw);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
 }
 
 .aboutTitle,
@@ -748,16 +893,27 @@ li.active .careerDetails {
 .aboutTitle {
   color: $color-point2;
 }
-
+.aboutSubTitle {
+  @include response(mobile) {
+    font-size: 17px;
+  }
+}
 .about ul {
   padding: 0 0 50px;
   margin: 0;
+  @include response(mobile) {
+    font-size: 14px;
+    padding: 0 0 10px;
+  }
 }
 
 .about li {
   padding: 0;
   margin: 0 0 30px;
   list-style: none;
+  @include response(mobile) {
+    margin: 0 0 5px;
+  }
 }
 
 .about li li {
